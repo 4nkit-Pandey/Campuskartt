@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Kartt — Academic Marketplace for Students</title>
+  <meta name="description" content="Campus Kartt is a sustainable student marketplace. Buy and sell academic equipment — lab coats, drafters, bicycles, textbooks — securely within your DTU campus community. Save money, reduce waste." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #CC0000; --red-bright: #FF2020; --red-dark: #990000;
+      --gold: #FFD700; --gold-dark: #AA7700;
+      --bg: #050505; --bg-card: #0d0d0d; --bg-elevated: #141414;
+      --text: #F2F2F2; --muted: rgba(242,242,242,0.45); --steel: #B0B0B0;
+    }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Circuit-grid background ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(204,0,0,0.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(204,0,0,0.028) 1px, transparent 1px),
+        radial-gradient(circle, rgba(204,0,0,0.10) 1px, transparent 1px);
+      background-size: 48px 48px, 48px 48px, 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ── Particle canvas ── */
+    #bg-canvas {
+      position: fixed; inset: 0;
+      z-index: 0; pointer-events: none;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 2rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(5,5,5,0.75);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(204,0,0,0.18);
+    }
+    .nav-logo {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+      text-decoration: none;
+    }
+    .nav-logo .campus { color: var(--steel); }
+    .nav-logo .kartt {
+      background: linear-gradient(135deg, var(--red-bright), var(--red));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-logo .dtu {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.52rem; font-weight: 600;
+      color: var(--red); border: 1px solid rgba(204,0,0,0.30);
+      padding: 0.1rem 0.35rem; border-radius: 3px; letter-spacing: 0.08em;
+    }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.6rem;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red) 50%, var(--gold) 100%);
+      background-size: 200%; background-position: 0%;
+      color: white; font-weight: 700; font-size: 0.8rem; border-radius: 6px;
+      text-decoration: none; transition: all 0.35s ease;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .nav-cta:hover { background-position: 100%; box-shadow: 0 4px 24px rgba(204,0,0,0.45); transform: translateY(-2px); color: #111; }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 1.5rem 4rem;
+      position: relative; z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.35rem 0.9rem;
+      background: rgba(204,0,0,0.08);
+      border: 1px solid rgba(204,0,0,0.22);
+      border-radius: 4px; margin-bottom: 2rem;
+      font-size: 0.65rem; font-weight: 700; color: var(--red);
+      font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em;
+      animation: fadeInDown 0.5s ease both;
+    }
+    .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: blink 2s ease infinite; }
+
+    .hero-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700; line-height: 0.95;
+      letter-spacing: -1px; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeInDown 0.65s ease 0.1s both;
+    }
+    .hero-title .line1 { display: block; color: var(--text); }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--red-bright) 0%, var(--red) 50%, var(--gold) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--muted); max-width: 540px; line-height: 1.7; margin-bottom: 3rem;
+      animation: fadeInDown 0.65s ease 0.2s both;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeInDown 0.65s ease 0.3s both;
+    }
+    .btn-hero-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red) 50%, var(--gold) 100%);
+      background-size: 200%; background-position: 0%;
+      color: white; font-weight: 700; font-size: 0.9rem;
+      border-radius: 6px; text-decoration: none;
+      transition: all 0.35s ease;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-family: 'Space Grotesk', sans-serif;
+      box-shadow: 0 4px 24px rgba(204,0,0,0.35);
+    }
+    .btn-hero-primary:hover { background-position: 100%; color: #111; transform: translateY(-3px); box-shadow: 0 8px 40px rgba(204,0,0,0.55); }
+    .btn-hero-ghost {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 1rem 2.2rem;
+      background: rgba(255,255,255,0.03);
+      color: var(--text); font-weight: 600; font-size: 0.9rem;
+      border-radius: 6px; text-decoration: none;
+      border: 1px solid rgba(176,176,176,0.15);
+      transition: all 0.25s ease;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .btn-hero-ghost:hover { border-color: rgba(204,0,0,0.35); color: var(--red); background: rgba(204,0,0,0.05); transform: translateY(-2px); }
+
+    /* ── Stats Strip ── */
+    .hero-stats {
+      margin-top: 5rem;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: rgba(13,13,13,0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(204,0,0,0.18);
+      border-radius: 12px; overflow: hidden;
+      animation: fadeInUp 0.65s ease 0.5s both;
+      max-width: 540px; width: 100%;
+    }
+    .stat-item {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 1.5rem 1rem; gap: 0.3rem;
+      border-right: 1px solid rgba(204,0,0,0.10);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem; font-weight: 600;
+      background: linear-gradient(135deg, var(--red-bright), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+    /* ── Section ── */
+    .section {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto; padding: 6rem 1.5rem;
+    }
+    .section-eyebrow {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--red); margin-bottom: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .section-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
+      text-transform: uppercase; color: var(--text); margin-bottom: 1rem;
+      letter-spacing: 0.02em;
+    }
+    .section-sub { font-size: 0.95rem; color: var(--muted); max-width: 500px; line-height: 1.7; margin-bottom: 3.5rem; }
+
+    /* ── Feature Cards ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+    }
+    .feat-card {
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(176,176,176,0.08);
+      border-radius: 12px; padding: 1.75rem;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .feat-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .feat-card:hover { border-color: rgba(204,0,0,0.28); transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 0 24px rgba(204,0,0,0.10); }
+    .feat-card:hover::before { opacity: 1; }
+    .feat-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+    .feat-title { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; letter-spacing: 0.04em; }
+    .feat-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── Categories Showcase ── */
+    .category-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    .cat-card {
+      background: rgba(13,13,13,0.8);
+      border: 1px solid rgba(176,176,176,0.08);
+      border-radius: 10px; padding: 1.25rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      text-align: center; cursor: pointer; transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .cat-card:hover { border-color: rgba(204,0,0,0.30); background: rgba(204,0,0,0.06); transform: translateY(-4px); }
+    .cat-card .cat-emoji { font-size: 1.8rem; }
+    .cat-card .cat-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; color: var(--text); letter-spacing: 0.04em; }
+    .cat-card .cat-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--red); }
+
+    /* ── How it works ── */
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .how-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem; }
+    .how-num {
+      width: 52px; height: 52px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--red), var(--red-dark));
+      color: white; display: flex; align-items: center; justify-content: center;
+      font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; font-weight: 600;
+      box-shadow: 0 4px 20px rgba(204,0,0,0.35); position: relative; z-index: 1;
+    }
+    .how-step-title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; color: var(--text); text-transform: uppercase; letter-spacing: 0.04em; }
+    .how-step-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      position: relative; z-index: 1; margin: 0 1.5rem 6rem;
+      border-radius: 12px; padding: 4rem 2rem; text-align: center;
+      background: linear-gradient(135deg, rgba(204,0,0,0.08) 0%, rgba(13,13,13,0) 50%, rgba(204,0,0,0.05) 100%);
+      border: 1px solid rgba(204,0,0,0.20); overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), var(--gold), var(--red), transparent);
+    }
+    .cta-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--text); text-transform: uppercase; margin-bottom: 0.75rem; }
+    .cta-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 2.5rem; max-width: 420px; margin-left: auto; margin-right: auto; }
+
+    /* ── Footer ── */
+    footer {
+      position: relative; z-index: 1;
+      border-top: 1px solid rgba(204,0,0,0.12);
+      padding: 2.5rem 2rem; text-align: center;
+    }
+    .footer-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+    .footer-logo span { color: var(--red); }
+    .footer-sub { color: var(--muted); font-size: 0.8rem; margin-bottom: 1rem; }
+    .powered-by-footer {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+      color: rgba(176,176,176,0.3); text-transform: uppercase; letter-spacing: 0.1em;
+      border-top: 1px solid rgba(176,176,176,0.06); padding-top: 1rem; margin-top: 1rem;
+    }
+    .powered-by-footer span { color: rgba(204,0,0,0.5); font-weight: 600; }
+
+    /* ── College Picker (homepage) ── */
+    .college-picker-section {
+      padding: 4rem 1.5rem 2rem;
+      text-align: center;
+      position: relative; z-index: 2;
+    }
+    .college-picker-label {
+      font-family: 'JetBrains Mono',monospace;
+      font-size: 0.62rem; font-weight: 700;
+      color: rgba(176,176,176,0.35);
+      text-transform: uppercase; letter-spacing: 0.14em;
+      margin-bottom: 1.25rem;
+    }
+    .college-picker-grid {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; max-width: 700px; margin: 0 auto;
+    }
+    .college-pick-card {
+      flex: 1; min-width: 240px; max-width: 320px;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(176,176,176,0.08);
+      border-radius: 12px; padding: 1.5rem 1.75rem;
+      cursor: pointer; text-align: left;
+      transition: all 0.25s ease; text-decoration: none;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .college-pick-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    }
+    .college-pick-card-badge {
+      font-family: 'JetBrains Mono',monospace;
+      font-size: 1.2rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .college-pick-card-name {
+      font-family: 'Space Grotesk',sans-serif;
+      font-size: 0.85rem; font-weight: 600; color: #E8E8E8;
+    }
+    .college-pick-card-loc {
+      font-family: 'JetBrains Mono',monospace;
+      font-size: 0.58rem; color: rgba(176,176,176,0.35);
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .college-pick-card-cta {
+      margin-top: 0.75rem;
+      font-family: 'Space Grotesk',sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 0.4rem 0.85rem; border-radius: 5px;
+      display: inline-block; text-align: center;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: #fff; transition: opacity 0.2s;
+    }
+    .college-pick-card-cta:hover { opacity: 0.85; }
+    .coming-soon-tag {
+      display: inline-block; padding: 0.15rem 0.5rem;
+      background: rgba(176,176,176,0.08);
+      border: 1px solid rgba(176,176,176,0.12);
+      border-radius: 4px;
+      font-family: 'JetBrains Mono',monospace;
+      font-size: 0.52rem; color: rgba(176,176,176,0.35);
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp   { from { opacity: 0; transform: translateY(20px);  } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .category-strip { grid-template-columns: repeat(2, 1fr); }
+      .hero-stats { grid-template-columns: 1fr; max-width: 240px; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(204,0,0,0.10); padding: 1rem; }
+      .stat-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/static/images/campus-kartt-logo.jpg" alt="Campus Kartt"
+           style="height:40px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(204,0,0,0.3));" />
+    </a>
+    <a href="/app/login.html" class="nav-cta">Enter Marketplace &rarr;</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      Sustainable Student Marketplace &mdash; Est. 2024
+    </div>
+    <h1 class="hero-title">
+      <span class="line1">Buy, Sell &amp; Reuse.</span>
+      <span class="line2">Save Carbon.</span>
+    </h1>
+    <p class="hero-sub">
+      Campus Kartt is a verified student marketplace. Trade academic equipment securely
+      within your campus community. Every reused item reduces CO&#8322; emissions and saves you money.
+    </p>
+    <div class="hero-buttons">
+      <a href="/app/login.html" class="btn-hero-primary">Browse Marketplace &rarr;</a>
+      <a href="/app/login.html" class="btn-hero-ghost">Sell an Item &uarr;</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Buy Back Guarantee</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Students Served</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">₹2L+</span>
+        <span class="stat-label">Student Savings</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- College Picker -->
+  <section class="college-picker-section">
+    <p class="college-picker-label">Select Your Institution to Continue</p>
+    <div class="college-picker-grid" id="college-picker-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </section>
+
+  <!-- Features -->
+  <div class="section">
+    <p class="section-eyebrow">Why Campus Kartt</p>
+    <h2 class="section-title">The Responsible Way to Trade Academic Equipment</h2>
+    <p class="section-sub">Trade academic items within your campus community. Verified students, secure payments, zero contact sharing, and a positive environmental impact with every transaction.</p>
+
+    <div class="features-grid">
+      <div class="feat-card">
+        <span class="feat-icon">🔒</span>
+        <div class="feat-title">Zero Contact Sharing</div>
+        <p class="feat-desc">Your number stays yours. Our campus agent handles collection from your hostel and delivery to the buyer's campus pickup point.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">💳</span>
+        <div class="feat-title">Escrow-Safe Payments</div>
+        <p class="feat-desc">Money is held securely by Campus Kartt until the gear is physically collected. No UPI scams. No ghosting. Just clean transactions.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">⚙️</span>
+        <div class="feat-title">DTU-Specific Categories</div>
+        <p class="feat-desc">We know the difference between Mech-Can Essentials and Lab Approved gear. Our categories speak your language.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🎓</span>
+        <div class="feat-title">DTU Verified Sellers</div>
+        <p class="feat-desc">Only DTU emails can register. Every seller is a fellow student — a senior passing their legacy forward to you.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">⚡</span>
+        <div class="feat-title">List in 2 Minutes</div>
+        <p class="feat-desc">Photo → Price → Description. We pick it up from your hostel door. No visits to Lajpat Nagar or OLX hassle needed.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">Live Deal Tracking</div>
+        <p class="feat-desc">Watch your deal move from "Listed" → "Buyer Found" → "Collected" → "Delivered" on your personal dashboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="section" style="padding-top:0;">
+    <p class="section-eyebrow">// Legacy Categories</p>
+    <h2 class="section-title">What's in the Bazaar</h2>
+    <p class="section-sub">From the Mech-Can workshop to the Audi prep room — everything a DTU student needs.</p>
+
+    <div class="category-strip">
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">📐</span>
+        <div class="cat-name">Mech-Can Essentials</div>
+        <div class="cat-tag">// Drafters • Drawing Boards</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">🧪</span>
+        <div class="cat-name">Lab Approved</div>
+        <div class="cat-tag">// Coats • Goggles • Notebooks</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">🎤</span>
+        <div class="cat-name">Audi Prep</div>
+        <div class="cat-tag">// Presenters • Pointers</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">📚</span>
+        <div class="cat-name">Library Finds</div>
+        <div class="cat-tag">// Textbooks • References</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">💻</span>
+        <div class="cat-name">CS Arsenal</div>
+        <div class="cat-tag">// Calculators • Electronics</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">🚲</span>
+        <div class="cat-name">Campus Transit</div>
+        <div class="cat-tag">// Bicycles • Helmets</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">🛋️</span>
+        <div class="cat-name">Hostel Essentials</div>
+        <div class="cat-tag">// Chairs • Lamps • Drawers</div>
+      </a>
+      <a href="/app/login.html" class="cat-card">
+        <span class="cat-emoji">🔧</span>
+        <div class="cat-name">Workshop Gear</div>
+        <div class="cat-tag">// Tools • PPE • Instruments</div>
+      </a>
+    </div>
+  </div>
+
+  <!-- How it Works -->
+  <div class="section" style="padding-top:0;">
+    <p class="section-eyebrow">// The Process</p>
+    <h2 class="section-title">Three steps. Zero stress.</h2>
+    <p class="section-sub">From listing your Legacy Gear to cash in your account — all within the same campus.</p>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div class="how-step-title">Post Your Legacy Gear</div>
+        <p class="how-step-desc">Upload a photo, set your price, describe the gear. Help a junior survive Engineering Graphics or conquer the OAT.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div class="how-step-title">Buyer Pays Securely</div>
+        <p class="how-step-desc">The buyer pays via Campus Kartt. Your money is held safely until the physical handoff is confirmed.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div class="how-step-title">Agent Handles Delivery</div>
+        <p class="how-step-desc">Our campus agent picks up from your hostel block and delivers to the designated pickup point. Clean and private.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-banner">
+    <h2 class="cta-title">Ready to trade your legacy?</h2>
+    <p class="cta-sub">Join DTU's official student circular economy. Your gear deserves a second life.</p>
+    <a href="/app/login.html" class="btn-hero-primary" style="display:inline-flex;">Enter Campus Kartt ⚡</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">Campus<span>Kartt</span> <span style="color:var(--steel); font-size:0.7rem; font-family:'JetBrains Mono'; margin-left:6px;">DTU</span></div>
+    <p class="footer-sub">Delhi Technological University's Premier Legacy Trade Hub</p>
+    <div class="powered-by-footer">
+      Powered by &mdash; <span>An EcoXchange Initiative</span> &mdash; © 2025
+    </div>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    // Red-tinted particles
+    for (let i = 0; i < 70; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.2 + 0.3,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        opacity: Math.random() * 0.35 + 0.05,
+        hue: Math.random() > 0.8 ? '255,215,0' : '204,0,0', // 20% gold, 80% red
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.hue}, ${p.opacity})`; ctx.fill();
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+
+  <script src="/js/colleges.js"></script>
+  <script>
+    // Render college picker on homepage
+    (function() {
+      const grid = document.getElementById('college-picker-grid');
+      if (!grid) return;
+      COLLEGES.forEach(college => {
+        const card = document.createElement('a');
+        card.href = college.appUrl;
+        card.className = 'college-pick-card';
+        card.style.borderColor = college.color + '33';
+        card.style.setProperty('--hover-glow', `0 12px 40px ${college.color}22`);
+        card.onmouseenter = function() { this.style.boxShadow = `0 12px 40px ${college.color}25`; this.style.borderColor = college.color + '55'; };
+        card.onmouseleave = function() { this.style.boxShadow = ''; this.style.borderColor = college.color + '33'; };
+        card.innerHTML = `
+          <div class="college-pick-card-badge" style="color:${college.color};">${college.shortName}</div>
+          <div class="college-pick-card-name">${college.name}</div>
+          <div class="college-pick-card-loc">${college.location}</div>
+          <div class="college-pick-card-cta" style="background:${college.color};">
+            Open Marketplace &rarr;
+          </div>`;
+        grid.appendChild(card);
+      });
+    })();
+  </script>
+</body>
+</html>

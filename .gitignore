@@ -1,0 +1,14 @@
+# Dependencies (none — vanilla HTML/CSS/JS)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+*.code-workspace
+
+# Env / secrets (none used — Supabase anon key is public by design)
+.env
+.env.local

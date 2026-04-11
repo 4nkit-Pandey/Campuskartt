@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Legacy Gear — Campus Kartt DTU</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body { background: var(--bg); }
+    .listing-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Navbar — always-scrolled on listing page */
+    .navbar { background: rgba(5,5,5,0.92); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(204,0,0,0.20); }
+
+    /* Image Panel */
+    .listing-image-panel img {
+      width: 100%;
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      max-height: 420px;
+      box-shadow: var(--shadow-md);
+    }
+    .listing-image-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #0d0d0d, #1a0000);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; box-shadow: var(--shadow-md);
+    }
+
+    /* Detail Panel */
+    .listing-detail-panel {
+      position: sticky;
+      top: 80px;
+    }
+
+    .listing-category-tag {
+      font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--red); margin-bottom: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .listing-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .listing-price-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .listing-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .meta-item {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+    }
+    .meta-item label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.25rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .meta-item span { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
+
+    .listing-description {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-card);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .listing-description h4 {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .listing-description p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* Trust Row */
+    .trust-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .trust-item .trust-icon { font-size: 1rem; flex-shrink: 0; }
+
+    /* Buy Button Area */
+    .buy-area {
+      background: rgba(247,208,138,0.04);
+      border: 1.5px solid rgba(247,208,138,0.2);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: 0 4px 24px rgba(247,208,138,0.08);
+    }
+    .buy-price-display {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 1rem;
+    }
+    .buy-total-label { font-size: 0.78rem; color: var(--text-muted); }
+    .buy-total-price { font-size: 1.8rem; font-weight: 800; color: var(--gold); font-family: 'Montserrat', sans-serif; }
+
+    @media (max-width: 768px) {
+      .listing-layout {
+        grid-template-columns: 1fr;
+      }
+      .listing-detail-panel { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <a href="/app/browse.html" class="logo" style="padding:0;">
+        <img src="/static/images/campus-kartt-logo.jpg" alt="Campus Kartt"
+             style="height:36px;width:auto;object-fit:contain;filter:drop-shadow(0 0 6px rgba(204,0,0,0.3));" />
+      </a>
+      <div class="nav-links">
+        <a href="/app/browse.html" class="nav-link active">Marketplace</a>
+        <a href="/app/post.html" class="nav-link">Sell an Item</a>
+        <a href="/app/dashboard.html" class="nav-link">My Account</a>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <button onclick="history.back()" class="btn btn-ghost btn-sm">← Back</button>
+      <div class="avatar" id="user-avatar">?</div>
+    </div>
+  </nav>
+
+  <!-- Loading skeleton -->
+  <div id="page-loading" class="page-container" style="padding-top:2rem;">
+    <div style="display:grid; grid-template-columns:1fr 420px; gap:2rem; max-width:1000px; margin:0 auto;">
+      <div class="skeleton" style="aspect-ratio:4/3; border-radius:20px;"></div>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div class="skeleton" style="height:16px; width:30%;"></div>
+        <div class="skeleton" style="height:40px; width:80%;"></div>
+        <div class="skeleton" style="height:40px; width:50%;"></div>
+        <div class="skeleton" style="height:120px;"></div>
+        <div class="skeleton" style="height:100px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listing Content -->
+  <div id="listing-content" class="listing-layout hidden">
+
+    <!-- Left: Image -->
+    <div class="listing-image-panel" id="listing-image-panel"></div>
+
+    <!-- Right: Details + Purchase -->
+    <div class="listing-detail-panel">
+      <div class="listing-category-tag" id="detail-category"></div>
+      <h1 class="listing-title" id="detail-title"></h1>
+
+      <div class="listing-price-row">
+        <span class="price-tag" id="detail-price"></span>
+        <span class="badge" id="detail-condition"></span>
+      </div>
+
+      <div class="listing-meta-grid">
+        <div class="meta-item">
+          <label>Pickup Point</label>
+          <span id="detail-pickup">Campus Pickup Desk</span>
+        </div>
+        <div class="meta-item">
+          <label>Campus</label>
+          <span id="detail-university">—</span>
+        </div>
+        <div class="meta-item">
+          <label>Listed on</label>
+          <span id="detail-date">—</span>
+        </div>
+        <div class="meta-item">
+          <label>Times Resold</label>
+          <span id="detail-reuse">0× ♻️</span>
+        </div>
+      </div>
+
+      <div class="listing-description">
+        <h4>About this item</h4>
+        <p id="detail-description">No description provided.</p>
+      </div>
+
+      <!-- Trust row -->
+      <div class="trust-row">
+        <div class="trust-item"><span class="trust-icon">🔒</span> Seller's contact is never shared with you</div>
+        <div class="trust-item"><span class="trust-icon">🤝</span> Campus Ambassador handles pickup & delivery</div>
+        <div class="trust-item"><span class="trust-icon">💳</span> Money held safely until you collect the item</div>
+      </div>
+
+      <!-- Buy Box -->
+      <div class="buy-area" id="buy-area">
+        <div class="buy-price-display">
+          <div>
+            <div class="buy-total-label">You pay</div>
+            <div class="buy-total-price" id="buy-price">₹0</div>
+          </div>
+          <div class="text-muted text-small" style="text-align:right; line-height:1.4;">
+          Includes Campus Kartt<br/>service fee
+          </div>
+        </div>
+        <button id="buy-btn" class="btn btn-primary btn-full btn-lg" onclick="handleBuy()">
+          I Want This — Pay Now →
+        </button>
+        <p class="text-muted text-small text-center" style="margin-top:0.75rem;">
+          You will be taken to a secure Razorpay payment page
+        </p>
+      </div>
+
+      <!-- Already owns this item message -->
+      <div id="own-item-msg" class="alert alert-info hidden">
+        This is your own listing. You cannot buy your own item.
+      </div>
+
+      <!-- Already purchased -->
+      <div id="purchased-msg" class="alert alert-success hidden">
+        ✅ You have already purchased this item. Check your dashboard for delivery status.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Not found -->
+  <div id="not-found" class="empty-state hidden" style="padding-top:3rem;">
+    <div class="empty-icon">😕</div>
+    <h3>Listing not found</h3>
+    <p>This item may have been sold or removed.</p>
+    <a href="/app/browse.html" class="btn btn-primary">Browse More Items</a>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Razorpay Script -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script>
+    const CATEGORY_LABELS = {
+      textbooks: 'Textbooks & Notes', drafter: 'Drafter Kit', bicycle: 'Bicycle',
+      chair: 'Study Chair', lamp: 'Desk Lamp', calculator: 'Calculator',
+      drawer: 'Drawer Unit', electronics: 'Electronics', sports: 'Sports Gear',
+    };
+    const CATEGORY_ICONS = {
+      textbooks: '📚', drafter: '📐', bicycle: '🚲', chair: '🪑',
+      lamp: '💡', calculator: '🧮', drawer: '🗄️', electronics: '⚡', sports: '🏏',
+    };
+    const CONDITION_CLASSES = { like_new: 'badge-green', good: 'badge-yellow', fair: 'badge-blue', old: 'badge-gray' };
+
+    let listing = null;
+    let currentUser = null;
+    let userProfile = null;
+
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+
+      if (!id) { showNotFound(); return; }
+
+      const user = await requireAuth();
+      if (!user) return;
+      currentUser = user;
+      userProfile = await getUserProfile(user.id);
+
+      if (userProfile) {
+        const initials = userProfile.full_name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+        document.getElementById('user-avatar').textContent = initials;
+      }
+
+      await loadListing(id);
+    }
+
+    async function loadListing(id) {
+      const { data, error } = await supabaseClient
+        .from('listings')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      document.getElementById('page-loading').classList.add('hidden');
+
+      if (error || !data) { showNotFound(); return; }
+      if (data.status !== 'active') { showNotFound(); return; }
+
+      listing = data;
+      renderListing();
+    }
+
+    function renderListing() {
+      const l = listing;
+      const icon = CATEGORY_ICONS[l.category] || '📦';
+      const catLabel = CATEGORY_LABELS[l.category] || l.category;
+      const condLabel = CONDITION_LABELS[l.condition] || l.condition;
+      const condClass = CONDITION_CLASSES[l.condition] || 'badge-gray';
+
+      // Image
+      const imagePanel = document.getElementById('listing-image-panel');
+      imagePanel.innerHTML = l.photo_url
+        ? `<img src="${l.photo_url}" alt="${l.title}" />`
+        : `<div class="listing-image-placeholder">${icon}</div>`;
+
+      // Details
+      document.getElementById('detail-category').textContent = catLabel;
+      document.getElementById('detail-title').textContent = l.title;
+      document.getElementById('detail-price').textContent = '₹' + Number(l.price).toLocaleString('en-IN');
+      document.getElementById('buy-price').textContent   = '₹' + Number(l.price).toLocaleString('en-IN');
+
+      const condBadge = document.getElementById('detail-condition');
+      condBadge.textContent = condLabel;
+      condBadge.className = `badge ${condClass}`;
+
+      document.getElementById('detail-pickup').textContent = 'Campus Pickup Point';
+      document.getElementById('detail-university').textContent = l.university || '—';
+      document.getElementById('detail-date').textContent = new Date(l.created_at).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+      document.getElementById('detail-reuse').textContent = `${l.reuse_count}× ♻️`;
+      document.getElementById('detail-description').textContent = l.description || 'No description provided.';
+
+      // Update page title
+      document.title = `${l.title} — Campus Kartt`;
+
+      // Show content
+      document.getElementById('listing-content').classList.remove('hidden');
+
+      // Check if own listing
+      if (l.seller_id === currentUser.id) {
+        document.getElementById('buy-area').classList.add('hidden');
+        document.getElementById('own-item-msg').classList.remove('hidden');
+        return;
+      }
+
+      // Check if already bought
+      checkAlreadyBought(l.id);
+    }
+
+    async function checkAlreadyBought(listingId) {
+      const { data } = await supabaseClient
+        .from('transactions')
+        .select('id')
+        .eq('buyer_id', currentUser.id)
+        .eq('listing_id', listingId)
+        .not('deal_status', 'eq', 'cancelled')
+        .single();
+
+      if (data) {
+        document.getElementById('buy-area').classList.add('hidden');
+        document.getElementById('purchased-msg').classList.remove('hidden');
+      }
+    }
+
+    // ── Razorpay Payment ──
+    async function handleBuy() {
+      const btn = document.getElementById('buy-btn');
+      btn.disabled = true;
+      btn.classList.add('btn-loading');
+
+      // NOTE: In production, you'd call a Supabase Edge Function to create a Razorpay order
+      // For now, this is a DEMO flow that shows the Razorpay dialog
+      // Replace 'YOUR_RAZORPAY_KEY_ID' with your actual Razorpay Key ID
+
+      const options = {
+        key: RAZORPAY_KEY_ID,              // ← Set in js/config.js
+        amount: Math.round(listing.price * 100), // Razorpay uses paise (1 rupee = 100 paise)
+        currency: 'INR',
+        name: 'Campus Kartt',
+        description: listing.title,
+        image: '/assets/logo.png',
+        prefill: {
+          name: userProfile?.full_name || '',
+          email: currentUser.email || '',
+          contact: userProfile?.whatsapp || '',
+        },
+        theme: { color: '#2E9E6B' },
+        handler: async function(response) {
+          await onPaymentSuccess(response);
+        },
+        modal: {
+          ondismiss: function() {
+            btn.disabled = false;
+            btn.classList.remove('btn-loading');
+          }
+        }
+      };
+
+      try {
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function(response) {
+          showToast('Payment failed: ' + response.error.description, 'error');
+          btn.disabled = false;
+          btn.classList.remove('btn-loading');
+        });
+        rzp.open();
+      } catch (err) {
+        // Razorpay key not configured yet — show demo message
+        btn.disabled = false;
+        btn.classList.remove('btn-loading');
+        showToast('Payment gateway not configured yet. Set up Razorpay key in listing.html', 'error');
+      }
+    }
+
+    async function onPaymentSuccess(razorpayResponse) {
+      // Create transaction record in Supabase
+      const commAmt = Math.round(listing.price * 0.10);
+      const sellerPayout = listing.price - commAmt;
+
+      const { data: txn, error } = await supabaseClient.from('transactions').insert({
+        listing_id: listing.id,
+        buyer_id: currentUser.id,
+        seller_id: listing.seller_id,
+        sale_price: listing.price,
+        commission_pct: 10,
+        commission_amt: commAmt,
+        seller_payout: sellerPayout,
+        payment_status: 'paid',
+        razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+        deal_status: 'initiated',
+      }).select().single();
+
+      if (error) {
+        showToast('Payment recorded but transaction creation failed. Contact support.', 'error');
+        return;
+      }
+
+      // Mark listing as sold
+      await supabaseClient.from('listings').update({ status: 'sold' }).eq('id', listing.id);
+
+      showToast('🎉 Payment successful! Check your dashboard for delivery status.', 'success');
+      setTimeout(() => window.location.href = '/app/dashboard.html', 2500);
+    }
+
+    function showNotFound() {
+      document.getElementById('page-loading').classList.add('hidden');
+      document.getElementById('not-found').classList.remove('hidden');
+    }
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast toast-${type}`;
+      toast.textContent = msg;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    init();
+  </script>
+</body>
+</html>

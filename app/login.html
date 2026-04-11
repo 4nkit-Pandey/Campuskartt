@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Access Kartt — Campus Kartt DTU</title>
+  <meta name="description" content="Sign in to Campus Kartt — Delhi Technological University's official Legacy Gear marketplace." />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/nav.css" />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="../js/colleges.js"></script>
+</head>
+<body class="login-body">
+
+  <!-- Left Panel — DTU Brand Panel -->
+  <div class="login-brand-panel">
+    <div class="brand-stars"></div>
+    <div class="brand-scan-line"></div>
+    <div class="brand-mascot">⚡</div>
+
+    <div class="brand-content">
+      <img src="/static/images/campus-kartt-logo.jpg" alt="Campus Kartt" style="height:48px;width:auto;object-fit:contain;margin-bottom:0.5rem;filter:drop-shadow(0 0 8px rgba(204,0,0,0.3));" />
+
+      <h1 class="brand-headline" style="font-size:clamp(1.1rem,2.5vw,1.5rem); line-height:1.25; margin-bottom:1rem;">
+        An Academic Marketplace<br><span>Built for Students.</span>
+      </h1>
+
+      <!-- Problems We Solve -->
+      <div style="margin-bottom:1.25rem;">
+        <p style="font-family:'JetBrains Mono',monospace; font-size:0.55rem; font-weight:700; color:rgba(176,176,176,0.35); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:0.75rem;">Problems We Solve</p>
+
+        <div style="display:flex; flex-direction:column; gap:0.55rem;">
+
+          <div style="background:rgba(204,0,0,0.07); border:1px solid rgba(204,0,0,0.15); border-radius:7px; padding:0.6rem 0.8rem;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:0.68rem; font-weight:700; color:#CC0000; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.3rem;">&#9654; Financial Waste</div>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.18rem;">
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; High upfront cost of new academic equipment</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; No reliable way to recover value by selling used items</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; Significant financial burden on students each semester</li>
+            </ul>
+          </div>
+
+          <div style="background:rgba(0,140,80,0.07); border:1px solid rgba(0,140,80,0.15); border-radius:7px; padding:0.6rem 0.8rem;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:0.68rem; font-weight:700; color:rgba(0,200,100,0.8); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.3rem;">&#9654; Environmental Waste</div>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.18rem;">
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; Throwaway culture — usable items discarded after exams</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; High carbon footprint from manufacturing new products</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; No structured system to incentivise reuse on campus</li>
+            </ul>
+          </div>
+
+          <div style="background:rgba(255,160,0,0.07); border:1px solid rgba(255,160,0,0.15); border-radius:7px; padding:0.6rem 0.8rem;">
+            <div style="font-family:'Space Grotesk',sans-serif; font-size:0.68rem; font-weight:700; color:rgba(255,180,0,0.85); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.3rem;">&#9654; Logistical &amp; Safety Issues</div>
+            <ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.18rem;">
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; Inefficient platforms like OLX and Facebook groups</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; High risk of scams and fraudulent listings</li>
+              <li style="font-size:0.72rem; color:rgba(200,200,200,0.7); font-family:'Space Grotesk',sans-serif;">&#8226; Privacy and safety concerns when meeting strangers</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="how-it-works">
+        <p class="how-title">How It Works</p>
+        <div class="how-step"><span class="step-num">01</span><span>Sell your academic equipment or browse items listed by fellow students</span></div>
+        <div class="how-step"><span class="step-num">02</span><span>Buyer makes a secure payment through our verified platform</span></div>
+        <div class="how-step"><span class="step-num">03</span><span>On-campus agent facilitates handover — no personal contact details shared</span></div>
+        <div class="how-step"><span class="step-num">04</span><span>Every reused item reduces waste and saves carbon emissions</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+      <div class="brand-tagline">// "Your legacy. Their future." — DTU, always forward.</div>
+      <div class="powered-by">An <span>EcoXchange</span> Initiative</div>
+    </div>
+  </div>
+
+  <!-- Right Panel — Auth Form -->
+  <div class="login-form-panel">
+    <div class="form-panel-inner">
+
+      <p class="form-panel-title">Access Hub ⚡</p>
+      <p class="form-panel-sub">Sign in to trade academic equipment within your campus community</p>
+
+      <!-- Tab Toggle -->
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')" role="tab">Sign In</button>
+        <button class="auth-tab" id="tab-register" onclick="switchTab('register')" role="tab">Register</button>
+      </div>
+
+      <!-- Alerts -->
+      <div id="auth-error" class="alert alert-error hidden"></div>
+      <div id="auth-success" class="alert alert-success hidden"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <input id="login-email" type="email" class="form-control"
+            placeholder="your@university.edu or any email"
+            required autocomplete="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="password-wrap">
+            <input id="login-password" type="password" class="form-control"
+              placeholder="Enter your password" required autocomplete="current-password" />
+            <button type="button" class="toggle-password" onclick="togglePassword('login-password', this)">
+              <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-2" style="font-size:0.78rem; margin-bottom:1rem;">
+          <label class="remember-me">
+            <input type="checkbox" id="remember-me" /> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" id="login-btn" class="btn btn-primary btn-full btn-lg">
+          Access Campus Kartt ⚡
+        </button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">Full Name</label>
+            <input id="reg-name" type="text" class="form-control" placeholder="Your Name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="reg-whatsapp">WhatsApp Number</label>
+            <input id="reg-whatsapp" type="tel" class="form-control" placeholder="98XXXXXXXX" required
+              pattern="[6-9][0-9]{9}" maxlength="10" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email Address</label>
+          <input id="reg-email" type="email" class="form-control"
+            placeholder="your@email.com" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-university">College</label>
+          <input id="reg-university" type="text" class="form-control"
+            placeholder="Delhi Technological University" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Create Password</label>
+          <div class="password-wrap">
+            <input id="reg-password" type="password" class="form-control"
+              placeholder="Min. 8 characters" required minlength="8" />
+            <button type="button" class="toggle-password" onclick="togglePassword('reg-password', this)">
+              <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+            </button>
+          </div>
+          <div class="password-strength" id="pwd-strength"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm">Confirm Password</label>
+          <input id="reg-confirm" type="password" class="form-control" placeholder="Re-enter password" required />
+        </div>
+
+        <p class="terms-note">
+          By registering, you agree to Campus Kartt's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+          An <span style="color:#CC0000">EcoXchange</span> Initiative.
+        </p>
+
+        <button type="submit" id="register-btn" class="btn btn-primary btn-full btn-lg">
+          Join Campus Kartt ⚡
+        </button>
+      </form>
+
+      <div style="text-align:center; margin-top:1.25rem;">
+        <p style="font-family:'JetBrains Mono'; font-size:0.62rem; color:rgba(176,176,176,0.25); text-transform:uppercase; letter-spacing:0.08em;">
+          🔒 Your contact details are never shared with other students.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="ck-footer" style="grid-column:1/-1;">
+    <div class="ck-footer-bottom" style="justify-content:center; gap:2rem;">
+      <div class="ck-footer-copy">© <span id="ck-year"></span> Campus Kartt — Delhi Technological University</div>
+      <div class="ck-footer-mce"><span class="dot"></span>DTU Students Community</div>
+      <div style="font-size:0.6rem; font-family:'JetBrains Mono'; color:rgba(204,0,0,0.35); text-transform:uppercase; letter-spacing:0.08em;">An <span style="color:#CC0000;">EcoXchange</span> Initiative</div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script>
+    function switchTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+      clearMessages();
+      if (tab === 'login') {
+        loginForm.classList.remove('hidden'); registerForm.classList.add('hidden');
+        document.getElementById('tab-login').classList.add('active');
+        document.getElementById('tab-register').classList.remove('active');
+        document.querySelector('.form-panel-title').textContent = 'Access Hub ⚡';
+        document.querySelector('.form-panel-sub').textContent = 'Sign in to trade academic equipment within your campus community';
+      } else {
+        registerForm.classList.remove('hidden'); loginForm.classList.add('hidden');
+        document.getElementById('tab-register').classList.add('active');
+        document.getElementById('tab-login').classList.remove('active');
+        document.querySelector('.form-panel-title').textContent = 'Create Account ⚡';
+        document.querySelector('.form-panel-sub').textContent = 'Join your campus marketplace — open to all students';
+      }
+    }
+
+    function togglePassword(id, btn) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    document.getElementById('reg-password')?.addEventListener('input', function() {
+      const val = this.value;
+      let strength = 0;
+      if (val.length >= 8) strength++;
+      if (/[A-Z]/.test(val)) strength++;
+      if (/[0-9]/.test(val)) strength++;
+      if (/[^A-Za-z0-9]/.test(val)) strength++;
+      const labels = ['', 'Weak', 'Fair', 'Strong', 'Max'];
+      const colors = ['', '#FF4444', '#FF9900', '#00CC66', '#CC0000'];
+      const bar = document.getElementById('pwd-strength');
+      bar.innerHTML = val ? `<div class="pwd-bar"><div class="pwd-fill" style="width:${strength*25}%; background:${colors[strength]};"></div></div><span style="color:${colors[strength]}; font-size:0.65rem; font-family:'JetBrains Mono'; font-weight:600;">${labels[strength]}</span>` : '';
+    });
+
+    function showError(msg) {
+      const el = document.getElementById('auth-error');
+      el.textContent = '⚠ ' + msg; el.classList.remove('hidden');
+      document.getElementById('auth-success').classList.add('hidden');
+    }
+    function showSuccess(msg) {
+      const el = document.getElementById('auth-success');
+      el.textContent = '✓ ' + msg; el.classList.remove('hidden');
+      document.getElementById('auth-error').classList.add('hidden');
+    }
+    function clearMessages() {
+      document.getElementById('auth-error').classList.add('hidden');
+      document.getElementById('auth-success').classList.add('hidden');
+    }
+    function setLoading(btnId, loading) {
+      const btn = document.getElementById(btnId);
+      if (loading) btn.classList.add('btn-loading'); else btn.classList.remove('btn-loading');
+      btn.disabled = loading;
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault(); clearMessages();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      if (!email || !password) { showError('Please fill in all fields.'); return; }
+      setLoading('login-btn', true);
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) {
+        setLoading('login-btn', false);
+        showError(error.message === 'Invalid login credentials' ? 'Incorrect email or password. Please try again.' : error.message);
+        return;
+      }
+      window.location.href = '/app/browse.html';
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault(); clearMessages();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const confirm = document.getElementById('reg-confirm').value;
+      const whatsapp = document.getElementById('reg-whatsapp').value.trim();
+      const university = document.getElementById('reg-university').value.trim();
+      if (password !== confirm) { showError('Passwords do not match.'); return; }
+      if (password.length < 8) { showError('Password must be at least 8 characters.'); return; }
+      if (!/^[6-9][0-9]{9}$/.test(whatsapp)) { showError('Enter a valid 10-digit Indian mobile number.'); return; }
+      setLoading('register-btn', true);
+      const { data, error } = await supabaseClient.auth.signUp({
+        email, password, options: { data: { full_name: name } }
+      });
+      if (error) { setLoading('register-btn', false); showError(error.message); return; }
+      if (data.user) {
+        await supabaseClient.from('users').update({ whatsapp, university }).eq('id', data.user.id);
+      }
+      setLoading('register-btn', false);
+      showSuccess('Account created! Check your email to verify, then sign in.');
+      switchTab('login');
+    }
+
+    (async () => {
+      const { data: { user } } = await supabaseClient.auth.getUser();
+      if (user) window.location.href = '/app/browse.html';
+    })();
+  </script>
+</body>
+</html>
