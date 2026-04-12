@@ -69,21 +69,19 @@
 
     /* ── ORBITAL CATEGORY SELECTOR ── */
     .orbital-wrapper {
-      position: relative; width: 100%; height: 400px;
+      position: relative; width: 100%; height: 540px;
       display: flex; align-items: center; justify-content: center;
     }
-    /* Orbit ring track */
     .orbit-track {
       position: absolute;
-      width: 320px; height: 320px;
+      width: 430px; height: 430px;
       border-radius: 50%;
       border: 1px dashed rgba(242,101,34,0.18);
       box-shadow: 0 0 0 1px rgba(242,101,34,0.05);
     }
-    /* Center hub */
     .orbit-hub {
       position: absolute; z-index: 10;
-      width: 76px; height: 76px; border-radius: 50%;
+      width: 82px; height: 82px; border-radius: 50%;
       background: var(--bg-card);
       border: 2px solid var(--orange);
       box-shadow: 0 0 24px rgba(242,101,34,0.35), 0 0 60px rgba(242,101,34,0.10);
@@ -94,39 +92,38 @@
       0%,100% { box-shadow: 0 0 20px rgba(242,101,34,0.3); }
       50%   { box-shadow: 0 0 40px rgba(242,101,34,0.55), 0 0 80px rgba(242,101,34,0.15); }
     }
-    /* Rotating ring container */
     .orbit-ring {
       position: absolute;
-      width: 320px; height: 320px;
-      animation: orbitSpin 22s linear infinite;
+      width: 430px; height: 430px;
+      animation: orbitSpin 28s linear infinite;
     }
     .orbit-ring.paused { animation-play-state: paused; }
     @keyframes orbitSpin { to { transform: rotate(360deg); } }
-    /* Each orbit node wrapper (positioned on ring) */
     .orbit-node {
       position: absolute;
       top: 50%; left: 50%;
-      width: 68px; height: 68px;
-      margin: -34px 0 0 -34px;
+      /* Card size */
+      width: 122px; height: 90px;
+      margin: -45px 0 0 -61px;
     }
-    /* Inner: counter-rotates to stay upright */
+    /* Card-style inner — counter-rotates to stay upright */
     .orbit-node-inner {
       width: 100%; height: 100%;
-      border-radius: 50%;
+      border-radius: 10px;
       background: var(--bg-card);
       border: 1.5px solid var(--border);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      cursor: pointer; gap: 2px;
-      /* Counter-rotate exactly matches orbit speed */
-      animation: orbitCounter 22s linear infinite;
+      cursor: pointer; padding: 0.5rem 0.4rem; gap: 3px;
+      animation: orbitCounter 28s linear infinite;
       transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      text-align: center;
     }
     .orbit-ring.paused .orbit-node-inner { animation-play-state: paused; }
     @keyframes orbitCounter { to { transform: rotate(-360deg); } }
     .orbit-node-inner:hover {
       border-color: var(--orange);
-      background: rgba(242,101,34,0.08);
+      background: rgba(242,101,34,0.07);
       box-shadow: 0 0 18px rgba(242,101,34,0.3);
     }
     .orbit-node-inner.selected {
@@ -134,23 +131,27 @@
       background: rgba(242,101,34,0.12) !important;
       box-shadow: 0 0 22px rgba(242,101,34,0.45) !important;
     }
-    .orbit-emoji { font-size: 1.3rem; line-height: 1; }
+    .orbit-emoji { font-size: 1.4rem; line-height: 1; display: block; }
     .orbit-lbl {
-      font-size: 0.38rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.03em; color: var(--text-muted);
-      text-align: center; max-width: 58px; line-height: 1.3;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--text-primary);
+      line-height: 1.25; font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .orbit-node-inner.selected .orbit-lbl { color: var(--orange); }
+    .orbit-sub {
+      font-size: 0.52rem; color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.3; margin-top: 1px;
+    }
     /* Selection info box */
     .orbit-selection-box {
-      text-align: center; padding: 0.6rem 1rem;
-      min-height: 52px;
+      text-align: center; padding: 0.5rem 1rem;
+      min-height: 46px;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 0.2rem;
+      align-items: center; justify-content: center; gap: 0.15rem;
     }
     .orbit-sel-name {
-      font-size: 0.95rem; font-weight: 700; color: var(--orange);
+      font-size: 1rem; font-weight: 700; color: var(--orange);
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
     .orbit-sel-sub {
@@ -480,7 +481,7 @@
       const ring = document.getElementById('orbit-ring');
       if (!ring) return;
       const total = ORBIT_CATS.length;
-      const radius = 160; // half of 320px track
+      const radius = 215; // half of 430px track
       ORBIT_CATS.forEach((cat, i) => {
         const angle = (i / total) * 360;
         const rad = (angle * Math.PI) / 180;
@@ -495,6 +496,7 @@
                title="${cat.name}">
             <span class="orbit-emoji">${cat.emoji}</span>
             <span class="orbit-lbl">${cat.name}</span>
+            <span class="orbit-sub">${cat.sub}</span>
           </div>`;
         ring.appendChild(node);
       });
