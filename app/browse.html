@@ -32,7 +32,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.7rem 1.2rem;
+      padding: 0.7rem 1.1rem;
       cursor: pointer;
       border: none;
       background: none;
@@ -42,12 +42,62 @@
       font-weight: 600;
       white-space: nowrap;
       border-bottom: 2px solid transparent;
-      transition: var(--transition);
+      transition:
+        color        0.22s ease,
+        background   0.22s ease,
+        border-color 0.22s ease;
       flex-shrink: 0;
+      position: relative;
+      border-radius: 8px 8px 0 0;
     }
-    .cat-tab .cat-icon { font-size: 1.4rem; line-height: 1; }
-    .cat-tab:hover { color: var(--text-primary); border-bottom-color: rgba(242,101,34,0.4); }
-    .cat-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+    /* Sliding underline: scaleX is GPU-accelerated, never causes layout */
+    .cat-tab::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 10%; right: 10%;
+      height: 2.5px;
+      background: var(--orange);
+      border-radius: 99px;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cat-tab.active::after {
+      transform: scaleX(1);
+    }
+
+    /* Icon: bounce-in on activation (GPU transform only) */
+    .cat-tab .cat-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      display: inline-block;
+      transition: transform 0.22s ease;
+    }
+    .cat-tab:hover .cat-icon {
+      transform: translateY(-2px) scale(1.10);
+    }
+    .cat-tab.active .cat-icon {
+      animation: iconPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes iconPop {
+      0%   { transform: scale(1); }
+      55%  { transform: scale(1.38) translateY(-3px); }
+      100% { transform: scale(1.12) translateY(-1px); }
+    }
+
+    /* Hover: subtle warm pill background */
+    .cat-tab:hover {
+      background: rgba(242, 101, 34, 0.07);
+      color: var(--text-primary);
+    }
+
+    /* Active: orange text + soft orange tint background */
+    .cat-tab.active {
+      color: var(--orange);
+      background: rgba(242, 101, 34, 0.10);
+      font-weight: 700;
+    }
 
     /* ── Hero Video Banner ── */
     .browse-hero {
