@@ -362,18 +362,24 @@
         </div>
         <div class="section-card-body">
           <div class="form-group" style="margin-bottom:0.5rem;">
-            <label class="form-label" for="item-price">Your Asking Price (₹) *</label>
+            <label class="form-label" for="item-price">Your Price — Amount you want to receive (₹) *</label>
             <div class="price-input-wrap">
               <span class="price-symbol">₹</span>
               <input id="item-price" type="number" class="form-control"
                 placeholder="0" min="50" max="200000" required oninput="updatePayout()" />
             </div>
+            <div class="form-hint" id="price-suggestion">💡 Select a category above to see typical price ranges.</div>
           </div>
 
           <div class="payout-preview" id="payout-preview" style="display:none;">
-            <div class="payout-row"><span>// Selling price</span><span id="payout-sale">₹0</span></div>
-            <div class="payout-row"><span>// Platform fee (10%)</span><span id="payout-comm" style="color:var(--warning);">−₹0</span></div>
-            <div class="payout-row total"><span>You Receive</span><span id="payout-you">₹0</span></div>
+            <div class="payout-row"><span>// Your asking price</span><span id="payout-sale">₹0</span></div>
+            <div class="payout-row"><span>// Platform markup — paid by buyer (+10%)</span><span id="payout-comm" style="color:#4ade80;">+₹0</span></div>
+            <div class="payout-row" style="border-top:1px solid var(--border); margin-top:0.4rem; padding-top:0.5rem; color:var(--orange); font-weight:700;">
+              <span>Buyer Pays</span><span id="payout-buyer">₹0</span>
+            </div>
+            <div class="payout-row" style="color:#4ade80; font-weight:800; font-size:0.92rem;">
+              <span>✅ You Receive</span><span id="payout-you">₹0</span>
+            </div>
           </div>
         </div>
       </div>
@@ -467,6 +473,17 @@
       }
     }
 
+    // Price suggestions per category
+    const PRICE_HINTS = {
+      textbooks:   'Textbooks typically sell for ₹150–₹800. Notes/PDFs ₹50–₹200.',
+      drafter:     'Rotring drafters go for ₹800–₹2,500. Sheet holders ₹100–₹300.',
+      lab:         'Lab coats ₹200–₹500. Lab kits ₹300–₹800.',
+      electronics: 'Casio calculators ₹400–₹900. Laptops ₹10K–₹35K.',
+      hostel:      'Study lamps ₹300–₹800. Tables ₹1K–₹4K. Mattress ₹500–₹1.5K.',
+      bicycle:     'Campus cycles typically sell for ₹2,500–₹7,000.',
+      sports:      'Cricket/badminton gear usually between ₹300–₹2,000.',
+    };
+
     // ── ORBITAL CATEGORY BUILDER ──
     const ORBIT_CATS = [
       { id: 'textbooks', emoji: '📚', name: 'Textbooks & Notes', sub: 'Textbooks · Class Notes · Lab Manuals' },
@@ -503,22 +520,20 @@
     })();
 
     function selectCategory(catId, el) {
-      // Pause orbit on first selection
       document.getElementById('orbit-ring').classList.add('paused');
-      // Deselect all nodes
       document.querySelectorAll('.orbit-node-inner').forEach(n => n.classList.remove('selected'));
-      // Select clicked node
       el.classList.add('selected');
-      // Store value
       document.getElementById('selected-category').value = catId;
       document.getElementById('cat-error').classList.add('hidden');
-      // Show info box
       const cat = ORBIT_CATS.find(c => c.id === catId);
       if (cat) {
         document.getElementById('orbit-sel-box').innerHTML =
           `<span class="orbit-sel-name">${cat.emoji} ${cat.name}</span>
            <span class="orbit-sel-sub">${cat.sub}</span>`;
       }
+      // Show price suggestion for this category
+      const hint = PRICE_HINTS[catId];
+      if (hint) document.getElementById('price-suggestion').textContent = '💡 ' + hint;
     }
 
     function selectCondition(cond, el) {
@@ -557,10 +572,12 @@
       const preview = document.getElementById('payout-preview');
       if (price > 0) {
         preview.style.display = 'block';
-        const comm = Math.round(price * 0.10);
-        document.getElementById('payout-sale').textContent = '₹' + price.toLocaleString('en-IN');
-        document.getElementById('payout-comm').textContent = '−₹' + comm.toLocaleString('en-IN');
-        document.getElementById('payout-you').textContent = '₹' + (price - comm).toLocaleString('en-IN');
+        const markup = Math.round(price * 0.10);
+        const buyerPays = price + markup;
+        document.getElementById('payout-sale').textContent  = '₹' + price.toLocaleString('en-IN');
+        document.getElementById('payout-comm').textContent  = '+₹' + markup.toLocaleString('en-IN');
+        document.getElementById('payout-buyer').textContent = '₹' + buyerPays.toLocaleString('en-IN');
+        document.getElementById('payout-you').textContent   = '₹' + price.toLocaleString('en-IN');
       } else { preview.style.display = 'none'; }
     }
 
@@ -583,6 +600,8 @@
       const desc = document.getElementById('item-desc').value.trim();
       const condition = document.getElementById('selected-condition').value;
       const price = parseFloat(document.getElementById('item-price').value);
+      // Store buyer-facing price (seller price + 10% markup)
+      const listingPrice = Math.round(price * 1.10);
       const university = document.getElementById('item-university').value.trim();
       const pickup = document.getElementById('item-pickup').value.trim();
       if (!title || !price || !university || !pickup) { showError('Please fill in all required fields.'); return; }
@@ -591,7 +610,7 @@
         let photoUrl = null;
         if (selectedPhotoFile) photoUrl = await uploadPhoto(selectedPhotoFile);
         const { data, error } = await supabaseClient.from('listings').insert({
-          seller_id: currentUser.id, title, description: desc, category, price, condition,
+          seller_id: currentUser.id, title, description: desc, category, price: listingPrice, condition,
           photo_url: photoUrl, university, pickup_point: pickup, status: 'active',
         }).select().single();
         if (error) throw error;
