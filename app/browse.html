@@ -302,9 +302,7 @@
           </div>
         </div>
 
-        <span class="ck-mce-badge">
-          <span class="mce-dot"></span> ACC. COMMUNITY
-        </span>
+
 
         <a href="post.html" class="btn btn-primary btn-sm">+ List Item</a>
 
@@ -387,27 +385,31 @@
     <div class="browse-hero-overlay"></div>
     <div class="browse-hero-content page-container">
       <div class="hero-eyebrow">DTU Academic Marketplace · Est. 2024</div>
-      <h1>Pre-Owned Academic<br/><span>Equipment & Supplies</span></h1>
-      <p id="hero-sub">Quality-checked, second-hand items listed by students from your institution.</p>
+      <h1>Campus <span>Equipment & Supplies</span></h1>
+      <p id="hero-sub">Quality-checked items listed by students from your institution — save up to 70%.</p>
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="hero-stat-val" id="stat-items">—</div>
-          <div class="hero-stat-lbl">Items Available</div>
+          <div class="hero-stat-lbl">Items Listed</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-val">0%</div>
-          <div class="hero-stat-lbl">Contact Shared</div>
+          <div class="hero-stat-val">70%</div>
+          <div class="hero-stat-lbl">Avg. Savings</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-val">DTU</div>
-          <div class="hero-stat-lbl">Campus Network</div>
+          <div class="hero-stat-val">100%</div>
+          <div class="hero-stat-lbl">Secure Transfer</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">10%</div>
+          <div class="hero-stat-lbl">Platform Fee Only</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ── Main Content ── -->
-  <div class="page-container" style="padding-top:1.5rem; padding-bottom:4rem;">
+  <div id="browse-products" class="page-container" style="padding-top:1.5rem; padding-bottom:4rem;">
 
     <!-- Toolbar -->
     <div class="browse-toolbar">
@@ -637,6 +639,9 @@
       document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
       if (btn) btn.classList.add('active');
       applyFilters();
+      // Smooth scroll to products section
+      const target = document.getElementById('browse-products');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     let searchTimeout;
