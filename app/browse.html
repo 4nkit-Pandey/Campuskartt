@@ -32,7 +32,7 @@
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.7rem 1.1rem;
+      padding: 0.7rem 1.2rem;
       cursor: pointer;
       border: none;
       background: none;
@@ -42,62 +42,12 @@
       font-weight: 600;
       white-space: nowrap;
       border-bottom: 2px solid transparent;
-      transition:
-        color        0.22s ease,
-        background   0.22s ease,
-        border-color 0.22s ease;
+      transition: var(--transition);
       flex-shrink: 0;
-      position: relative;
-      border-radius: 8px 8px 0 0;
     }
-
-    /* Sliding underline: scaleX is GPU-accelerated, never causes layout */
-    .cat-tab::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 10%; right: 10%;
-      height: 2.5px;
-      background: var(--orange);
-      border-radius: 99px;
-      transform: scaleX(0);
-      transform-origin: center;
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .cat-tab.active::after {
-      transform: scaleX(1);
-    }
-
-    /* Icon: bounce-in on activation (GPU transform only) */
-    .cat-tab .cat-icon {
-      font-size: 1.4rem;
-      line-height: 1;
-      display: inline-block;
-      transition: transform 0.22s ease;
-    }
-    .cat-tab:hover .cat-icon {
-      transform: translateY(-2px) scale(1.10);
-    }
-    .cat-tab.active .cat-icon {
-      animation: iconPop 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-    @keyframes iconPop {
-      0%   { transform: scale(1); }
-      55%  { transform: scale(1.38) translateY(-3px); }
-      100% { transform: scale(1.12) translateY(-1px); }
-    }
-
-    /* Hover: subtle warm pill background */
-    .cat-tab:hover {
-      background: rgba(242, 101, 34, 0.07);
-      color: var(--text-primary);
-    }
-
-    /* Active: orange text + soft orange tint background */
-    .cat-tab.active {
-      color: var(--orange);
-      background: rgba(242, 101, 34, 0.10);
-      font-weight: 700;
-    }
+    .cat-tab .cat-icon { font-size: 1.4rem; line-height: 1; }
+    .cat-tab:hover { color: var(--text-primary); border-bottom-color: rgba(242,101,34,0.4); }
+    .cat-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
 
     /* ── Hero Video Banner ── */
     .browse-hero {
@@ -398,25 +348,31 @@
         <span class="cat-icon">🛍️</span>All Items
       </button>
       <button class="cat-tab" data-cat="textbooks" onclick="filterByCategory('textbooks',this)">
-        <span class="cat-icon">📚</span>Textbooks & Notes
+        <span class="cat-icon">📚</span>Textbooks
       </button>
       <button class="cat-tab" data-cat="drafter" onclick="filterByCategory('drafter',this)">
-        <span class="cat-icon">📐</span>Academic Tools
+        <span class="cat-icon">📐</span>Drawing Tools
       </button>
-      <button class="cat-tab" data-cat="lab" onclick="filterByCategory('lab',this)">
-        <span class="cat-icon">🥼</span>Lab Utilities
+      <button class="cat-tab" data-cat="calculator" onclick="filterByCategory('calculator',this)">
+        <span class="cat-icon">🧮</span>Calculators
       </button>
       <button class="cat-tab" data-cat="electronics" onclick="filterByCategory('electronics',this)">
         <span class="cat-icon">⚡</span>Electronics
       </button>
-      <button class="cat-tab" data-cat="hostel" onclick="filterByCategory('hostel',this)">
-        <span class="cat-icon">🏠</span>Hostel & PG
-      </button>
       <button class="cat-tab" data-cat="bicycle" onclick="filterByCategory('bicycle',this)">
         <span class="cat-icon">🚲</span>Bicycles
       </button>
+      <button class="cat-tab" data-cat="chair" onclick="filterByCategory('chair',this)">
+        <span class="cat-icon">🪑</span>Furniture
+      </button>
+      <button class="cat-tab" data-cat="lamp" onclick="filterByCategory('lamp',this)">
+        <span class="cat-icon">💡</span>Lighting
+      </button>
+      <button class="cat-tab" data-cat="drawer" onclick="filterByCategory('drawer',this)">
+        <span class="cat-icon">🗄️</span>Storage
+      </button>
       <button class="cat-tab" data-cat="sports" onclick="filterByCategory('sports',this)">
-        <span class="cat-icon">🏏</span>Sports & Rec
+        <span class="cat-icon">🏏</span>Sports
       </button>
     </div>
   </div>
@@ -574,17 +530,8 @@
     let currentUser = null;
 
     const CATEGORY_ICONS = {
-      textbooks:'📚', drafter:'📐', lab:'🥼', electronics:'⚡',
-      hostel:'🏠', bicycle:'🚲', sports:'🏏',
-      // legacy IDs (backward compat with existing DB listings)
-      chair:'🏠', lamp:'🏠', calculator:'⚡', drawer:'🏠',
-    };
-    const CATEGORY_LABELS = {
-      textbooks:'Textbooks & Notes', drafter:'Academic Tools', lab:'Lab Utilities',
-      electronics:'Electronics', hostel:'Hostel & PG', bicycle:'Bicycles & Transit',
-      sports:'Sports & Rec',
-      // legacy
-      chair:'Hostel & PG', lamp:'Hostel & PG', calculator:'Electronics', drawer:'Hostel & PG',
+      textbooks:'📚', drafter:'📐', bicycle:'🚲', chair:'🪑',
+      lamp:'💡', calculator:'🧮', drawer:'🗄️', electronics:'⚡', sports:'🏏',
     };
     const CONDITION_CLASSES = { like_new:'badge-green', good:'badge-yellow', fair:'badge-blue', old:'badge-gray' };
 
@@ -659,7 +606,7 @@
       empty.classList.add('hidden'); grid.classList.remove('hidden');
       grid.innerHTML = listings.map(l => {
         const icon = CATEGORY_ICONS[l.category] || '📦';
-        const catLabel = CATEGORY_LABELS[l.category] || ITEM_CATEGORIES.find(c=>c.id===l.category)?.label || l.category;
+        const catLabel = ITEM_CATEGORIES.find(c=>c.id===l.category)?.label || l.category;
         const condLabel = CONDITION_LABELS[l.condition] || l.condition;
         const condClass = CONDITION_CLASSES[l.condition] || 'badge-gray';
         const imgHtml = l.photo_url
