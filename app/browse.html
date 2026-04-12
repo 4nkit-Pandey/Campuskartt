@@ -348,31 +348,25 @@
         <span class="cat-icon">🛍️</span>All Items
       </button>
       <button class="cat-tab" data-cat="textbooks" onclick="filterByCategory('textbooks',this)">
-        <span class="cat-icon">📚</span>Textbooks
+        <span class="cat-icon">📚</span>Textbooks & Notes
       </button>
       <button class="cat-tab" data-cat="drafter" onclick="filterByCategory('drafter',this)">
-        <span class="cat-icon">📐</span>Drawing Tools
+        <span class="cat-icon">📐</span>Academic Tools
       </button>
-      <button class="cat-tab" data-cat="calculator" onclick="filterByCategory('calculator',this)">
-        <span class="cat-icon">🧮</span>Calculators
+      <button class="cat-tab" data-cat="lab" onclick="filterByCategory('lab',this)">
+        <span class="cat-icon">🥼</span>Lab Utilities
       </button>
       <button class="cat-tab" data-cat="electronics" onclick="filterByCategory('electronics',this)">
         <span class="cat-icon">⚡</span>Electronics
       </button>
+      <button class="cat-tab" data-cat="hostel" onclick="filterByCategory('hostel',this)">
+        <span class="cat-icon">🏠</span>Hostel & PG
+      </button>
       <button class="cat-tab" data-cat="bicycle" onclick="filterByCategory('bicycle',this)">
         <span class="cat-icon">🚲</span>Bicycles
       </button>
-      <button class="cat-tab" data-cat="chair" onclick="filterByCategory('chair',this)">
-        <span class="cat-icon">🪑</span>Furniture
-      </button>
-      <button class="cat-tab" data-cat="lamp" onclick="filterByCategory('lamp',this)">
-        <span class="cat-icon">💡</span>Lighting
-      </button>
-      <button class="cat-tab" data-cat="drawer" onclick="filterByCategory('drawer',this)">
-        <span class="cat-icon">🗄️</span>Storage
-      </button>
       <button class="cat-tab" data-cat="sports" onclick="filterByCategory('sports',this)">
-        <span class="cat-icon">🏏</span>Sports
+        <span class="cat-icon">🏏</span>Sports & Rec
       </button>
     </div>
   </div>
@@ -530,8 +524,17 @@
     let currentUser = null;
 
     const CATEGORY_ICONS = {
-      textbooks:'📚', drafter:'📐', bicycle:'🚲', chair:'🪑',
-      lamp:'💡', calculator:'🧮', drawer:'🗄️', electronics:'⚡', sports:'🏏',
+      textbooks:'📚', drafter:'📐', lab:'🥼', electronics:'⚡',
+      hostel:'🏠', bicycle:'🚲', sports:'🏏',
+      // legacy IDs (backward compat with existing DB listings)
+      chair:'🏠', lamp:'🏠', calculator:'⚡', drawer:'🏠',
+    };
+    const CATEGORY_LABELS = {
+      textbooks:'Textbooks & Notes', drafter:'Academic Tools', lab:'Lab Utilities',
+      electronics:'Electronics', hostel:'Hostel & PG', bicycle:'Bicycles & Transit',
+      sports:'Sports & Rec',
+      // legacy
+      chair:'Hostel & PG', lamp:'Hostel & PG', calculator:'Electronics', drawer:'Hostel & PG',
     };
     const CONDITION_CLASSES = { like_new:'badge-green', good:'badge-yellow', fair:'badge-blue', old:'badge-gray' };
 
@@ -606,7 +609,7 @@
       empty.classList.add('hidden'); grid.classList.remove('hidden');
       grid.innerHTML = listings.map(l => {
         const icon = CATEGORY_ICONS[l.category] || '📦';
-        const catLabel = ITEM_CATEGORIES.find(c=>c.id===l.category)?.label || l.category;
+        const catLabel = CATEGORY_LABELS[l.category] || ITEM_CATEGORIES.find(c=>c.id===l.category)?.label || l.category;
         const condLabel = CONDITION_LABELS[l.condition] || l.condition;
         const condClass = CONDITION_CLASSES[l.condition] || 'badge-gray';
         const imgHtml = l.photo_url

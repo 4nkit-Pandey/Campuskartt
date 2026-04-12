@@ -34,15 +34,13 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 const COMMISSION_PCT = 10; // 10% commission
 
 const ITEM_CATEGORIES = [
-  { id: 'textbooks', label: 'Textbooks & Notes', icon: '📚', range: '₹500–₹1.2K' },
-  { id: 'drafter', label: 'Drafter Kits', icon: '📐', range: '₹1.5K–₹4.5K' },
-  { id: 'bicycle', label: 'Bicycles', icon: '🚲', range: '₹5K–₹12K' },
-  { id: 'chair', label: 'Study Chairs', icon: '🪑', range: '₹8K–₹18K' },
-  { id: 'lamp', label: 'Desk Lamps', icon: '💡', range: '₹600–₹2.5K' },
-  { id: 'calculator', label: 'Calculators', icon: '🧮', range: '₹800–₹3K' },
-  { id: 'drawer', label: 'Drawer Units', icon: '🗄️', range: '₹800–₹2K' },
-  { id: 'electronics', label: 'Electronics', icon: '⚡', range: '₹1K–₹15K' },
-  { id: 'sports', label: 'Sports Gear', icon: '🏏', range: '₹500–₹4K' },
+  { id: 'textbooks',  label: 'Textbooks & Notes',  icon: '📚', range: '₹200–₹1.5K',  sub: 'Textbooks · Class Notes · Lab Manuals' },
+  { id: 'drafter',   label: 'Academic Tools',      icon: '📐', range: '₹500–₹4.5K',  sub: 'Drafter · Sheet Holder · Drawing Board' },
+  { id: 'lab',       label: 'Lab Utilities',       icon: '🥼', range: '₹300–₹2K',   sub: 'Lab Coat · Lab Equipment · Safety Gear' },
+  { id: 'electronics', label: 'Electronics',       icon: '⚡', range: '₹500–₹20K', sub: 'Calculator · Laptop · Accessories' },
+  { id: 'hostel',    label: 'Hostel & PG',         icon: '🏠', range: '₹300–₹8K',  sub: 'Study Lamp · Table · Storage · Bedding' },
+  { id: 'bicycle',   label: 'Bicycles & Transit',  icon: '🚲', range: '₹3K–₹15K',  sub: 'Cycle · Helmet · Lock' },
+  { id: 'sports',    label: 'Sports & Rec',        icon: '🏏', range: '₹300–₹5K',  sub: 'Cricket · Badminton · Equipment' },
 ];
 
 const CONDITION_LABELS = {
