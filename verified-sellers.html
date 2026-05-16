@@ -1,0 +1,594 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EcoXchange Verified Sellers — Trusted Ecosystem Partners</title>
+<meta name="description" content="Discover the verified sellers and platforms integrated into the EcoXchange trust ecosystem. Every seller is condition-scored, identity-verified, and passport-enabled."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --eco-green:#00C896;--eco-green-dim:rgba(0,200,150,0.12);--eco-green-border:rgba(0,200,150,0.25);
+  --eco-teal:#0EA5E9;--eco-teal-dim:rgba(14,165,233,0.10);
+  --eco-gold:#F5C842;--eco-gold-dim:rgba(245,200,66,0.10);
+  --bg:#070A0F;--bg-card:#0D1117;--bg-elevated:#131A23;--bg-glass:rgba(13,17,23,0.85);
+  --text:#E8EDF3;--muted:rgba(232,237,243,0.45);--subtle:rgba(232,237,243,0.20);
+  --border:rgba(255,255,255,0.06);--border-eco:rgba(0,200,150,0.18);
+  --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
+}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+/* ── Animated mesh background ── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%,rgba(0,200,150,0.06) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,rgba(14,165,233,0.05) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 40%,rgba(245,200,66,0.03) 0%,transparent 50%);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,200,150,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,200,150,0.025) 1px,transparent 1px);
+  background-size:56px 56px;
+}
+body>*{position:relative;z-index:1}
+
+/* ── Navbar ── */
+.navbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:66px;padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(7,10,15,0.80);backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border-eco);
+}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo-mark{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--eco-green),var(--eco-teal));
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:700;color:#070A0F;font-family:'JetBrains Mono',monospace;
+  box-shadow:0 0 16px rgba(0,200,150,0.30);
+}
+.nav-wordmark{font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:-0.01em}
+.nav-wordmark .eco{color:var(--eco-green)}.nav-wordmark .x{color:var(--text)}
+.nav-tag{
+  font-family:'JetBrains Mono',monospace;font-size:0.5rem;font-weight:600;
+  color:var(--eco-green);border:1px solid var(--eco-green-border);
+  padding:0.1rem 0.4rem;border-radius:4px;text-transform:uppercase;letter-spacing:0.10em;
+  margin-left:4px;opacity:0.7;
+}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-link{font-size:0.8rem;font-weight:500;color:var(--muted);transition:color 0.2s}
+.nav-link:hover,.nav-link.active{color:var(--eco-green)}
+.nav-cta{
+  font-size:0.78rem;font-weight:700;font-family:'Space Grotesk',sans-serif;
+  padding:0.5rem 1.2rem;border-radius:var(--r-sm);
+  background:var(--eco-green-dim);border:1px solid var(--eco-green-border);
+  color:var(--eco-green);transition:all 0.22s ease;text-transform:uppercase;letter-spacing:0.06em;
+}
+.nav-cta:hover{background:var(--eco-green);color:#070A0F;box-shadow:0 0 20px rgba(0,200,150,0.35)}
+
+/* ── Hero ── */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:8rem 1.5rem 5rem;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  padding:0.4rem 1rem;border-radius:var(--r-lg);
+  background:var(--eco-green-dim);border:1px solid var(--eco-green-border);
+  font-size:0.62rem;font-weight:700;color:var(--eco-green);
+  font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:2.5rem;animation:fadeUp 0.5s ease both;
+}
+.hero-badge .pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--eco-green);
+  animation:pulseDot 2s ease infinite;
+}
+.hero-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.5rem,6vw,5rem);font-weight:700;
+  line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem;
+  animation:fadeUp 0.6s ease 0.1s both;
+}
+.hero-title .line1{display:block;color:var(--text)}
+.hero-title .line2{
+  display:block;
+  background:linear-gradient(135deg,var(--eco-green) 0%,var(--eco-teal) 60%,var(--eco-gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(0.9rem,1.8vw,1.05rem);color:var(--muted);
+  max-width:520px;line-height:1.75;margin-bottom:3rem;
+  animation:fadeUp 0.6s ease 0.2s both;
+}
+.hero-stats{
+  display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;
+  animation:fadeUp 0.6s ease 0.35s both;
+}
+.hero-stat{
+  display:flex;flex-direction:column;align-items:center;gap:0.25rem;
+  padding:1rem 1.5rem;background:var(--bg-glass);
+  border:1px solid var(--border-eco);border-radius:var(--r-md);
+  backdrop-filter:blur(16px);min-width:110px;
+}
+.hero-stat-num{
+  font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:600;
+  background:linear-gradient(135deg,var(--eco-green),var(--eco-teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-stat-label{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.10em;font-family:'JetBrains Mono',monospace}
+
+/* ── Section ── */
+.section{max-width:1240px;margin:0 auto;padding:5rem 1.5rem}
+.section-head{margin-bottom:3rem}
+.section-eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:0.62rem;font-weight:600;
+  color:var(--eco-green);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:0.6rem;
+}
+.section-title{
+  font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3.5vw,2.4rem);
+  font-weight:700;color:var(--text);letter-spacing:-0.02em;margin-bottom:0.75rem;
+}
+.section-sub{font-size:0.9rem;color:var(--muted);max-width:520px;line-height:1.75}
+
+/* ── Filter bar ── */
+.filter-bar{
+  display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;
+  padding:1rem 1.5rem;background:var(--bg-card);
+  border:1px solid var(--border);border-radius:var(--r-md);
+  margin-bottom:2.5rem;
+}
+.filter-label{
+  font-size:0.6rem;font-weight:700;color:var(--subtle);
+  font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.12em;
+  margin-right:0.25rem;white-space:nowrap;
+}
+.filter-pill{
+  padding:0.35rem 0.9rem;border-radius:var(--r-lg);border:1px solid var(--border);
+  background:transparent;color:var(--muted);font-size:0.75rem;font-weight:600;
+  font-family:'Inter',sans-serif;cursor:pointer;transition:all 0.18s ease;white-space:nowrap;
+}
+.filter-pill:hover{border-color:var(--eco-green-border);color:var(--eco-green);background:var(--eco-green-dim)}
+.filter-pill.active{border-color:var(--eco-green);color:var(--eco-green);background:var(--eco-green-dim)}
+
+/* ── Sellers grid ── */
+.sellers-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;
+}
+
+/* ── Seller card ── */
+.seller-card{
+  background:var(--bg-card);border-radius:var(--r-lg);
+  border:1px solid var(--border);overflow:hidden;
+  transition:transform 0.28s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.28s ease,border-color 0.22s ease;
+  cursor:default;position:relative;display:flex;flex-direction:column;
+}
+.seller-card:hover{transform:translateY(-6px)}
+.seller-card-top-bar{height:3px;width:100%;transition:opacity 0.2s}
+.seller-card-body{padding:1.5rem;flex:1;display:flex;flex-direction:column;gap:1rem}
+.seller-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
+.seller-logo-wrap{
+  width:60px;height:60px;border-radius:var(--r-sm);overflow:hidden;
+  background:var(--bg-elevated);border:1px solid var(--border);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;
+}
+.seller-logo-wrap img{width:100%;height:100%;object-fit:cover}
+.seller-meta{flex:1;min-width:0}
+.seller-name{
+  font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:700;
+  color:var(--text);margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.seller-tagline{font-size:0.75rem;color:var(--muted);line-height:1.5}
+.seller-tier-badge{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  padding:0.22rem 0.6rem;border-radius:var(--r-lg);
+  font-size:0.58rem;font-weight:700;font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:0.08em;white-space:nowrap;flex-shrink:0;
+}
+.seller-desc{font-size:0.82rem;color:var(--muted);line-height:1.65}
+.seller-cats{display:flex;flex-wrap:wrap;gap:0.4rem}
+.seller-cat{
+  padding:0.2rem 0.55rem;border-radius:4px;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  font-size:0.65rem;color:var(--subtle);font-family:'JetBrains Mono',monospace;
+}
+.seller-trust-row{display:flex;flex-wrap:wrap;gap:0.4rem}
+.seller-trust-chip{
+  display:inline-flex;align-items:center;gap:0.3rem;
+  padding:0.18rem 0.5rem;border-radius:4px;
+  background:var(--eco-green-dim);border:1px solid var(--eco-green-border);
+  font-size:0.6rem;color:var(--eco-green);font-family:'JetBrains Mono',monospace;
+}
+.seller-trust-chip::before{content:"✓";font-weight:700}
+.seller-footer{
+  padding:1rem 1.5rem;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:rgba(0,0,0,0.12);
+}
+.seller-location{display:flex;align-items:center;gap:0.4rem;font-size:0.72rem;color:var(--muted)}
+.seller-location-icon{font-size:0.85rem;opacity:0.6}
+.seller-rating{display:flex;align-items:center;gap:0.35rem;font-size:0.72rem}
+.seller-rating-num{font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--eco-gold)}
+.seller-rating-count{color:var(--muted)}
+.seller-actions{display:flex;gap:0.6rem;padding:0 1.5rem 1.25rem}
+.btn-visit{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;
+  padding:0.7rem 1.25rem;border-radius:var(--r-sm);font-size:0.8rem;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;
+  transition:all 0.22s ease;border:none;cursor:pointer;
+}
+.btn-passport{
+  display:inline-flex;align-items:center;justify-content:center;gap:0.4rem;
+  padding:0.7rem 1rem;border-radius:var(--r-sm);font-size:0.75rem;font-weight:600;
+  font-family:'Space Grotesk',sans-serif;
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  color:var(--muted);transition:all 0.22s ease;cursor:pointer;white-space:nowrap;
+}
+.btn-passport:hover{border-color:var(--eco-green-border);color:var(--eco-green);background:var(--eco-green-dim)}
+
+/* ── Trust score ring ── */
+.trust-ring{position:relative;width:44px;height:44px;flex-shrink:0}
+.trust-ring svg{transform:rotate(-90deg)}
+.trust-ring-val{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:0.58rem;font-weight:700;color:var(--eco-green);
+}
+
+/* ── Eco verified badge big ── */
+.eco-verified-hero{
+  display:inline-flex;align-items:center;gap:0.75rem;
+  padding:0.65rem 1.25rem;border-radius:var(--r-md);
+  background:var(--eco-green-dim);border:1px solid var(--eco-green-border);
+  margin-bottom:2rem;
+}
+.eco-verified-icon{font-size:1.4rem}
+.eco-verified-text{text-align:left}
+.eco-verified-label{font-size:0.62rem;color:var(--eco-green);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.10em}
+.eco-verified-sub{font-size:0.75rem;color:var(--muted)}
+
+/* ── How it works ── */
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.how-card{
+  padding:1.75rem;background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--r-lg);position:relative;overflow:hidden;
+}
+.how-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--eco-green),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.how-card:hover::before{opacity:1}
+.how-num{
+  font-family:'JetBrains Mono',monospace;font-size:2.5rem;font-weight:700;
+  color:var(--eco-green);opacity:0.15;margin-bottom:1rem;line-height:1;
+}
+.how-icon{font-size:1.6rem;margin-bottom:0.75rem}
+.how-title{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.5rem}
+.how-desc{font-size:0.82rem;color:var(--muted);line-height:1.65}
+
+/* ── CTA section ── */
+.cta-section{
+  margin:0 1.5rem 6rem;padding:4rem 2rem;text-align:center;
+  background:linear-gradient(135deg,rgba(0,200,150,0.06),rgba(14,165,233,0.04));
+  border:1px solid var(--eco-green-border);border-radius:var(--r-xl);
+  position:relative;overflow:hidden;
+}
+.cta-section::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--eco-green),var(--eco-teal),transparent);
+}
+.cta-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:700;color:var(--text);margin-bottom:0.75rem}
+.cta-sub{font-size:0.9rem;color:var(--muted);max-width:440px;margin:0 auto 2rem;line-height:1.75}
+.btn-cta-primary{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  padding:0.85rem 2.25rem;border-radius:var(--r-sm);
+  background:var(--eco-green);color:#070A0F;font-weight:700;font-size:0.88rem;
+  font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.06em;
+  transition:all 0.22s ease;box-shadow:0 4px 24px rgba(0,200,150,0.30);
+}
+.btn-cta-primary:hover{background:#00E5AC;box-shadow:0 8px 36px rgba(0,200,150,0.50);transform:translateY(-2px)}
+
+/* ── Footer ── */
+footer{border-top:1px solid var(--border-eco);padding:2.5rem 2rem;text-align:center;position:relative;z-index:1}
+.footer-brand{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.4rem}
+.footer-brand .eco{color:var(--eco-green)}
+.footer-sub{font-size:0.78rem;color:var(--muted);margin-bottom:0.75rem}
+.footer-ck{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--subtle);text-transform:uppercase;letter-spacing:0.10em}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseDot{0%,100%{box-shadow:0 0 0 0 rgba(0,200,150,0.5)}70%{box-shadow:0 0 0 6px rgba(0,200,150,0)}}
+
+/* ── Responsive ── */
+@media(max-width:900px){.how-grid{grid-template-columns:1fr 1fr}.sellers-grid{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .navbar{padding:0 1rem}.nav-links{display:none}
+  .how-grid{grid-template-columns:1fr}.hero-stats{gap:1rem}
+  .hero-stat{padding:0.75rem 1rem;min-width:90px}
+}
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo-mark">E</div>
+    <div>
+      <span class="nav-wordmark"><span class="eco">Eco</span><span class="x">Xchange</span></span>
+      <span class="nav-tag">Trust Layer</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="/index.html" class="nav-link">Home</a>
+    <a href="#how-it-works" class="nav-link">How It Works</a>
+    <a href="#verified-sellers" class="nav-link active">Verified Sellers</a>
+    <a href="#ecosystem" class="nav-link">Ecosystem</a>
+  </div>
+  <a href="https://campuskartt.vercel.app" target="_blank" rel="noopener" class="nav-cta">Visit CampusKartt →</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="hero-badge"><div class="pulse"></div>EcoXchange Verified Ecosystem — Active</div>
+  <h1 class="hero-title">
+    <span class="line1">Trusted Sellers.</span>
+    <span class="line2">Verified Products.</span>
+  </h1>
+  <p class="hero-sub">EcoXchange is the trust and verification infrastructure behind reusable products. Every seller here is identity-verified, condition-scored, and passport-enabled.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num" id="stat-sellers">6</span><span class="hero-stat-label">Verified Sellers</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="stat-ecoids">2.2K+</span><span class="hero-stat-label">EcoIDs Issued</span></div>
+    <div class="hero-stat"><span class="hero-stat-num" id="stat-passports">1.1K+</span><span class="hero-stat-label">Passports Active</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">100%</span><span class="hero-stat-label">Trust Verified</span></div>
+  </div>
+</section>
+
+<!-- Sellers Section -->
+<div class="section" id="verified-sellers">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:2.5rem">
+    <div class="section-head" style="margin-bottom:0">
+      <p class="section-eyebrow">// Verified Ecosystem Partners</p>
+      <h2 class="section-title">EcoXchange Verified Sellers</h2>
+      <p class="section-sub">Sellers accepted into the EcoXchange ecosystem undergo identity verification, product auditing, and lifecycle integration before receiving the Verified badge.</p>
+    </div>
+    <div class="eco-verified-hero">
+      <span class="eco-verified-icon">🛡️</span>
+      <div class="eco-verified-text">
+        <div class="eco-verified-label">EcoXchange Verified ✓</div>
+        <div class="eco-verified-sub">Identity · Condition · Passport</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="filter-bar" id="filter-bar">
+    <span class="filter-label">Filter by:</span>
+  </div>
+
+  <!-- Grid -->
+  <div class="sellers-grid" id="sellers-grid"></div>
+</div>
+
+<!-- How it works -->
+<div class="section" id="how-it-works" style="padding-top:0">
+  <div class="section-head">
+    <p class="section-eyebrow">// Trust Infrastructure</p>
+    <h2 class="section-title">How EcoXchange Verification Works</h2>
+    <p class="section-sub">EcoXchange is not a marketplace. It is the trust layer that powers marketplaces and verified sellers.</p>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="how-num">01</div>
+      <div class="how-icon">🔍</div>
+      <div class="how-title">Seller Identity Verification</div>
+      <p class="how-desc">Sellers submit KYC documents, shop registration, and operating history. EcoXchange audits and approves before onboarding.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">02</div>
+      <div class="how-icon">🪪</div>
+      <div class="how-title">Product EcoID & Passport</div>
+      <p class="how-desc">Each product gets a unique EcoID and Digital Product Passport tracking condition, ownership history, and lifecycle data.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-num">03</div>
+      <div class="how-icon">📡</div>
+      <div class="how-title">Lifecycle Intelligence</div>
+      <p class="how-desc">Products are tracked across ownership cycles. Every resale updates the passport — so buyers always know a product's full story.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section" id="ecosystem">
+  <h2 class="cta-title">Want to join the EcoXchange ecosystem?</h2>
+  <p class="cta-sub">Apply to become a Verified Seller. Get EcoIDs, Digital Product Passports, and the trust badge that converts buyers.</p>
+  <a href="mailto:eco@campuskartt.in?subject=EcoXchange Seller Application" class="btn-cta-primary">Apply as Verified Seller →</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-brand"><span class="eco">Eco</span>Xchange</div>
+  <p class="footer-sub">The Trust + Verification Infrastructure for Reusable Products</p>
+  <div class="footer-ck">An initiative within the CampusKartt Ecosystem · © 2025</div>
+</footer>
+<script src="/js/sellers.js"></script>
+<script>
+(function(){
+  // ── Render filter pills ───────────────────────────────────
+  const filterBar = document.getElementById('filter-bar');
+  let activeFilter = 'All';
+  SELLER_CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-pill' + (cat === 'All' ? ' active' : '');
+    btn.textContent = cat;
+    btn.dataset.cat = cat;
+    btn.addEventListener('click', () => {
+      activeFilter = cat;
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderSellers();
+    });
+    filterBar.appendChild(btn);
+  });
+
+  // ── Trust score ring SVG ─────────────────────────────────
+  function trustRing(score, color) {
+    const r = 18, cx = 22, cy = 22, circ = 2 * Math.PI * r;
+    const dash = (score / 100) * circ;
+    return `<div class="trust-ring">
+      <svg width="44" height="44" viewBox="0 0 44 44">
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="4"
+          stroke-dasharray="${dash} ${circ}" stroke-linecap="round"
+          style="filter:drop-shadow(0 0 4px ${color})"/>
+      </svg>
+      <div class="trust-ring-val">${score}</div>
+    </div>`;
+  }
+
+  // ── Build one seller card ─────────────────────────────────
+  function buildCard(s) {
+    const tier = SELLER_TIERS[s.tier];
+    const logoHTML = `<div class="seller-logo-wrap">
+      <img src="${s.logo}" alt="${s.name}" onerror="this.parentElement.innerHTML='<span style=font-size:1.8rem>${s.logoFallback}</span>'"/>
+    </div>`;
+
+    const trustChips = s.trustIndicators
+      .map(t => `<span class="seller-trust-chip">${t}</span>`).join('');
+    const cats = s.categories
+      .map(c => `<span class="seller-cat">${c}</span>`).join('');
+    const stars = '★'.repeat(Math.round(s.rating)) + '☆'.repeat(5 - Math.round(s.rating));
+
+    const visitBtnStyle = `background:${s.accentColor};color:#070A0F;box-shadow:0 4px 20px ${s.accentColor}40`;
+    const visitTarget = s.isExternal ? 'target="_blank" rel="noopener"' : '';
+
+    return `<article class="seller-card" data-cats='${JSON.stringify(s.categories)}' style="--card-accent:${s.accentColor}">
+      <div class="seller-card-top-bar" style="background:linear-gradient(90deg,${s.accentColor},${tier.color})"></div>
+      <div class="seller-card-body">
+        <div class="seller-card-header">
+          ${logoHTML}
+          <div class="seller-meta">
+            <div class="seller-name">${s.name}</div>
+            <div class="seller-tagline">${s.tagline}</div>
+          </div>
+          <span class="seller-tier-badge" style="background:${tier.badgeBg};border-color:${tier.border};color:${tier.color}">
+            ${tier.icon} ${s.tierLabel}
+          </span>
+        </div>
+        <p class="seller-desc">${s.description}</p>
+        <div class="seller-cats">${cats}</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem">
+          <div>
+            <div style="font-size:0.6rem;color:var(--subtle);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:0.4rem">Trust Indicators</div>
+            <div class="seller-trust-row">${trustChips}</div>
+          </div>
+          ${trustRing(s.trustScore, s.accentColor)}
+        </div>
+      </div>
+      <div class="seller-footer">
+        <div class="seller-location"><span class="seller-location-icon">📍</span>${s.locationShort}</div>
+        <div class="seller-rating">
+          <span style="color:var(--eco-gold);font-size:0.7rem">${stars}</span>
+          <span class="seller-rating-num">${s.rating}</span>
+          <span class="seller-rating-count">(${s.reviewCount})</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.62rem;color:var(--muted)">Since ${s.verifiedSince}</div>
+      </div>
+      <div class="seller-actions">
+        <a href="${s.url}" ${visitTarget} class="btn-visit" style="${visitBtnStyle}" id="visit-${s.id}">
+          Visit ${s.name} ${s.isExternal ? '↗' : '→'}
+        </a>
+        <button class="btn-passport" onclick="showPassportInfo('${s.id}')" id="passport-${s.id}">
+          🪪 Passport
+        </button>
+      </div>
+    </article>`;
+  }
+
+  // ── Render grid ──────────────────────────────────────────
+  function renderSellers() {
+    const grid = document.getElementById('sellers-grid');
+    const filtered = activeFilter === 'All'
+      ? ECO_SELLERS
+      : ECO_SELLERS.filter(s => s.categories.some(c =>
+          c.toLowerCase().includes(activeFilter.toLowerCase()) ||
+          activeFilter.toLowerCase().includes(c.toLowerCase())
+        ));
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem 1rem">
+        <div style="font-size:2.5rem;margin-bottom:1rem">🔍</div>
+        <div style="color:var(--muted);font-size:0.9rem">No verified sellers found for this category yet.</div>
+      </div>`;
+    } else {
+      grid.innerHTML = filtered.map(buildCard).join('');
+    }
+    // Animate cards in
+    grid.querySelectorAll('.seller-card').forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, i * 80);
+    });
+  }
+
+  // ── Passport modal ───────────────────────────────────────
+  window.showPassportInfo = function(id) {
+    const s = ECO_SELLERS.find(x => x.id === id);
+    if (!s) return;
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(0,0,0,0.80);backdrop-filter:blur(10px)';
+    overlay.innerHTML = `<div style="background:#0D1117;border:1px solid rgba(0,200,150,0.25);border-radius:20px;width:100%;max-width:480px;overflow:hidden;animation:fadeUp 0.3s ease">
+      <div style="padding:1.5rem;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--eco-green);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.3rem">Digital Product Passport</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">${s.name}</div>
+        </div>
+        <button onclick="this.closest('div[style*=fixed]').remove()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.06);border:none;color:var(--muted);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+      </div>
+      <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1rem">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <div style="padding:1rem;background:rgba(0,200,150,0.06);border:1px solid rgba(0,200,150,0.15);border-radius:10px;text-align:center">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--eco-green)">${s.ecoIdCount}+</div>
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem">EcoIDs Issued</div>
+          </div>
+          <div style="padding:1rem;background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.15);border-radius:10px;text-align:center">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--eco-teal)">${s.passportCount}+</div>
+            <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.2rem">Passports Active</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
+          ${s.trustIndicators.map(t => `<span class="seller-trust-chip">${t}</span>`).join('')}
+          ${s.qrEnabled ? '<span style="padding:0.18rem 0.5rem;border-radius:4px;background:rgba(245,200,66,0.10);border:1px solid rgba(245,200,66,0.25);font-size:0.6rem;color:#F5C842;font-family:JetBrains Mono,monospace">✓ QR Passport Active</span>' : ''}
+        </div>
+        <p style="font-size:0.8rem;color:var(--muted);line-height:1.65">Products from this seller carry EcoXchange Digital Passports — verifiable records of condition, ownership history, and lifecycle tracking.</p>
+        <a href="${s.url}" ${s.isExternal ? 'target="_blank" rel="noopener"' : ''} style="display:flex;align-items:center;justify-content:center;gap:0.5rem;padding:0.8rem;border-radius:10px;background:${s.accentColor};color:#070A0F;font-weight:700;font-size:0.85rem;font-family:Space Grotesk,sans-serif;text-transform:uppercase;letter-spacing:0.06em">
+          Visit ${s.name} ${s.isExternal ? '↗' : '→'}
+        </a>
+      </div>
+    </div>`;
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+    document.body.appendChild(overlay);
+  };
+
+  // ── Init ─────────────────────────────────────────────────
+  renderSellers();
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').style.background =
+      window.scrollY > 40 ? 'rgba(7,10,15,0.96)' : 'rgba(7,10,15,0.80)';
+  });
+})();
+</script>
+</body>
+</html>
