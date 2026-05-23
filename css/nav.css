@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    CAMPUS KARTT — Global Navigation & Footer Styles
    DTU Red (#F26522) | Space Black (#050505) | Brushed Steel (#B0B0B0)
    ============================================================ */
@@ -204,7 +204,7 @@
 .ck-nav-link.active::after { transform: translateX(-50%) scaleX(1); }
 .ck-nav-link.active { color: #F26522; }
 
-/* EcoXchange Badge in navbar */
+/* Campus Kartt Badge in navbar */
 .ck-mce-badge {
   display: inline-flex;
   align-items: center;

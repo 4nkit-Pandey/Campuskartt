@@ -1,8 +1,8 @@
-// ============================================================
-// ECOXCHANGE — Verified Sellers Registry
+﻿// ============================================================
+// Campus Kartt — Verified Sellers Registry
 // ============================================================
 // This is the single source-of-truth for all sellers
-// integrated into the EcoXchange trust ecosystem.
+// integrated into the Campus Kartt trust ecosystem.
 //
 // SELLER TIERS:
 //   platinum  — founding ecosystem partners (highest trust)
@@ -19,9 +19,9 @@ const ECO_SELLERS = [
   {
     id: 'campuskartt',
     name: 'CampusKartt',
-    tagline: 'The Student Marketplace — Powered by EcoXchange',
+    tagline: 'The Student Marketplace — Powered by Campus Kartt',
     description:
-      'DTU\'s premier peer-to-peer marketplace for academic and hostel essentials. Every listing on CampusKartt is eligible for EcoXchange verification, giving buyers full product lifecycle transparency.',
+      'DTU\'s premier peer-to-peer marketplace for academic and hostel essentials. Every listing on CampusKartt is eligible for Campus Kartt verification, giving buyers full product lifecycle transparency.',
     logo: '/static/images/sellers/campuskartt.png',
     logoFallback: '🛒',
     accentColor: '#F26522',
@@ -71,7 +71,7 @@ const ECO_SELLERS = [
     name: 'VoltBox',
     tagline: 'Campus Electronics & Gadget Repair Hub',
     description:
-      'VoltBox stocks pre-checked calculators, soldering kits, Arduino boards, and lab instruments. Every item carries an EcoXchange condition score so you know exactly what you\'re buying.',
+      'VoltBox stocks pre-checked calculators, soldering kits, Arduino boards, and lab instruments. Every item carries A Campus Kartt condition score so you know exactly what you\'re buying.',
     logo: '/static/images/sellers/voltbox.png',
     logoFallback: '⚡',
     accentColor: '#F5C842',
@@ -96,7 +96,7 @@ const ECO_SELLERS = [
     name: 'HostelHub',
     tagline: 'Hostel Essentials — Move In Without Buying New',
     description:
-      'Chairs, lamps, mattresses, drawer units — HostelHub stocks everything a freshman needs for their hostel room, sourced from graduating seniors and verified for condition through EcoXchange.',
+      'Chairs, lamps, mattresses, drawer units — HostelHub stocks everything a freshman needs for their hostel room, sourced from graduating seniors and verified for condition through Campus Kartt.',
     logo: '/static/images/sellers/hostelhub.png',
     logoFallback: '🛋️',
     accentColor: '#E85D5D',
@@ -121,7 +121,7 @@ const ECO_SELLERS = [
     name: 'StationaryWale',
     tagline: 'Engineering & Art Stationery at Student Prices',
     description:
-      'Drafting instruments, drawing boards, compasses, and art supplies — StationaryWale is the go-to store for Mech-Can students. Pre-owned kits verified and condition-tagged by EcoXchange.',
+      'Drafting instruments, drawing boards, compasses, and art supplies — StationaryWale is the go-to store for Mech-Can students. Pre-owned kits verified and condition-tagged by Campus Kartt.',
     logo: '/static/images/sellers/stationarywale.png',
     logoFallback: '📐',
     accentColor: '#22C55E',
@@ -146,7 +146,7 @@ const ECO_SELLERS = [
     name: 'CycleMart',
     tagline: 'Refurbished Cycles for Campus Life',
     description:
-      'CycleMart specialises in refurbished student bicycles — cleaned, serviced, and EcoXchange condition-scored before every sale. Each cycle carries a digital passport with service history.',
+      'CycleMart specialises in refurbished student bicycles — cleaned, serviced, and Campus Kartt condition-scored before every sale. Each cycle carries a digital passport with service history.',
     logo: '/static/images/sellers/cyclemart.png',
     logoFallback: '🚲',
     accentColor: '#38BDF8',

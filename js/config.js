@@ -1,5 +1,5 @@
-// ============================================================
-// ECOXCHANGE — Configuration File
+﻿// ============================================================
+// Campus Kartt — Configuration File
 // ============================================================
 // STEP 1: Go to your Supabase project
 // STEP 2: Click "Project Settings" (gear icon, bottom left)

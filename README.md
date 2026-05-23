@@ -1,10 +1,10 @@
-# EcoXchange — Campus Marketplace
+﻿# Campus Kartt — Campus Marketplace
 
 One's Waste, Everyone's Treasure.
 
-## What is EcoXchange?
+## What is Campus Kartt?
 
-EcoXchange is a managed campus marketplace for Indian university students. 
+Campus Kartt is a managed campus marketplace for Indian university students. 
 Students can safely buy and sell used goods — books, bicycles, electronics, 
 study chairs, and more — with a Campus Ambassador handling physical pickup 
 and an escrow-style payment system.
@@ -16,7 +16,7 @@ and an escrow-style payment system.
 3. Campus Ambassador collects the item from the seller
 4. Item is placed at the campus pickup point
 5. Buyer is notified and collects their item
-6. EcoXchange keeps 8-12% commission, seller gets the rest
+6. Campus Kartt keeps 8-12% commission, seller gets the rest
 
 ## Tech Stack
 
