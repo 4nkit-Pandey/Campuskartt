@@ -638,6 +638,8 @@
         if (error) throw error;
 
         // ── EcoXchange Integration ─────────────────────────────────────
+        // Update ECOXCHANGE_BASE_URL when you change hosting
+        const ECOXCHANGE_BASE_URL = 'https://ecoxchange-dpp-newacc.vercel.app';
         // If user came from EcoXchange, notify it so the listing appears
         // on EcoXchange Marketplace automatically.
         const urlParams = new URLSearchParams(window.location.search);

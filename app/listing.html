@@ -469,6 +469,8 @@
       await supabaseClient.from('listings').update({ status: 'sold' }).eq('id', listing.id);
 
       // ── EcoXchange Integration: notify EcoXchange the item is now SOLD ──
+      // Update ECOXCHANGE_BASE_URL when you change hosting
+      const ECOXCHANGE_BASE_URL = 'https://ecoxchange-dpp-newacc.vercel.app';
       try {
         await fetch('https://ecoxchange-dpp.netlify.app/api/listings/campuskartt/status', {
           method: 'POST',
