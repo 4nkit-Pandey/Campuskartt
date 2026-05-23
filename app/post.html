@@ -702,7 +702,33 @@
       if (btn)  btn.textContent = menu.classList.contains('active') ? '✕' : '☰';
     }
 
-    init();
+    // ── EcoXchange SSO: Auto-login if tokens passed in URL hash ────────────
+    // When a user clicks "Sell" on EcoXchange, tokens are passed in the hash
+    // so they don't need to sign in again on CampusKartt.
+    async function restoreEcoSession() {
+      const hash = window.location.hash.slice(1); // remove leading '#'
+      if (!hash) return false;
+      const params = new URLSearchParams(hash);
+      const accessToken  = params.get('eco_access_token');
+      const refreshToken = params.get('eco_refresh_token');
+      if (!accessToken || !refreshToken) return false;
+      try {
+        const { data, error } = await supabaseClient.auth.setSession({
+          access_token:  decodeURIComponent(accessToken),
+          refresh_token: decodeURIComponent(refreshToken),
+        });
+        if (error || !data?.session) return false;
+        // Clean up hash from URL so tokens aren't in browser history
+        history.replaceState(null, '', window.location.pathname + window.location.search);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    restoreEcoSession().then(() => init());
+
   </script>
 </body>
 </html>
