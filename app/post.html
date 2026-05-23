@@ -645,7 +645,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('source') === 'ecoxchange' && data) {
           try {
-            await fetch('https://ecoxchange-dpp.netlify.app/api/listings/campuskartt', {
+            await fetch('https://ecoxchange-dpp-newacc.vercel.app/api/listings/campuskartt', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -653,7 +653,7 @@
               },
               body: JSON.stringify({
                 externalId:  String(data.id),
-                externalUrl: `https://campuskartt1.netlify.app/app/listing.html?id=${data.id}`,
+                externalUrl: `https://campuskartt-newacc.vercel.app/app/listing.html?id=${data.id}`,
                 title:       title,
                 description: desc,
                 category:    category,
