@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -636,6 +636,37 @@
           photo_url: photoUrl, university, pickup_point: pickup, status: 'active',
         }).select().single();
         if (error) throw error;
+
+        // ── EcoXchange Integration ─────────────────────────────────────
+        // If user came from EcoXchange, notify it so the listing appears
+        // on EcoXchange Marketplace automatically.
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('source') === 'ecoxchange' && data) {
+          try {
+            await fetch('https://ecoxchange-dpp.netlify.app/api/listings/campuskartt', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-ecoxchange-secret': 'ck-eco-webhook-secret-2024'
+              },
+              body: JSON.stringify({
+                externalId:  String(data.id),
+                externalUrl: `https://campuskartt1.netlify.app/app/listing.html?id=${data.id}`,
+                title:       title,
+                description: desc,
+                category:    category,
+                price:       listingPrice,
+                condition:   condition,
+                imageUrl:    photoUrl || null,
+              })
+            });
+          } catch (webhookErr) {
+            // Non-fatal — listing is already saved on CampusKartt
+            console.warn('EcoXchange webhook failed (non-fatal):', webhookErr);
+          }
+        }
+        // ─────────────────────────────────────────────────────────────
+
         showSuccess('⚡ Gear listed! Your legacy lives on. Redirecting to dashboard...');
         setTimeout(() => window.location.href = 'dashboard.html', 2200);
       } catch (err) {

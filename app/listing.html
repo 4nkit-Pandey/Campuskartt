@@ -468,6 +468,25 @@
       // Mark listing as sold
       await supabaseClient.from('listings').update({ status: 'sold' }).eq('id', listing.id);
 
+      // ── EcoXchange Integration: notify EcoXchange the item is now SOLD ──
+      try {
+        await fetch('https://ecoxchange-dpp.netlify.app/api/listings/campuskartt/status', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-ecoxchange-secret': 'ck-eco-webhook-secret-2024'
+          },
+          body: JSON.stringify({
+            externalId: String(listing.id),
+            status: 'sold'
+          })
+        });
+      } catch (webhookErr) {
+        // Non-fatal
+        console.warn('EcoXchange sold webhook failed (non-fatal):', webhookErr);
+      }
+      // ────────────────────────────────────────────────────────────────────
+
       showToast('🎉 Payment successful! Check your dashboard for delivery status.', 'success');
       setTimeout(() => window.location.href = '/app/dashboard.html', 2500);
     }
