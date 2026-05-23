@@ -639,13 +639,13 @@
 
         // ── EcoXchange Integration ─────────────────────────────────────
         // Update ECOXCHANGE_BASE_URL when you change hosting
-        const ECOXCHANGE_BASE_URL = 'https://ecoxchange-dpp-newacc.vercel.app';
+        const ECOXCHANGE_BASE_URL = 'https://www.ecoxchange.in';
         // If user came from EcoXchange, notify it so the listing appears
         // on EcoXchange Marketplace automatically.
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('source') === 'ecoxchange' && data) {
           try {
-            await fetch('https://ecoxchange-dpp-newacc.vercel.app/api/listings/campuskartt', {
+            await fetch('https://www.ecoxchange.in/api/listings/campuskartt', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
